@@ -6,6 +6,9 @@ from django.db import models
 class Country(models.Model):
     name = models.CharField(max_length=45)
 
+    def __str__(self):
+        return self.name
+
 
 class User(models.Model):
     first_name = models.CharField(max_length=45)
@@ -16,5 +19,8 @@ class User(models.Model):
     profile_pic = models.CharField(max_length=45)
     is_activated = models.BooleanField(default=False)
     birth_date = models.DateField(null=True, blank=True)
-    country_id = models.ForeignKey(Country, on_delete=models.CASCADE)
-    facebook_profile_id = models.CharField(max_length=45)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True, blank=True)
+    facebook_profile_id = models.CharField(null=True, blank=True, max_length=45)
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name
