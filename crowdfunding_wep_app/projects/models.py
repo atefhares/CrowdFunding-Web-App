@@ -7,9 +7,15 @@ from login_registration.models import User
 class Category(models.Model):
     name = models.CharField(max_length=45)
 
+    def __str__(self):
+        return self.name
+
 
 class Tags(models.Model):
     name = models.CharField(max_length=45)
+
+    def __str__(self):
+        return self.name
 
 
 class Project(models.Model):
@@ -21,3 +27,6 @@ class Project(models.Model):
     start_date = models.DateField
     end_date = models.DateField
     tags = models.ManyToManyField(Tags, blank=True, verbose_name="List of tags", related_name="number_of_uses")
+
+    def __str__(self):
+        return self.title
