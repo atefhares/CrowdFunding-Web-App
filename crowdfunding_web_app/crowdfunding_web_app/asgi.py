@@ -1,5 +1,5 @@
 """
-ASGI config for crowdfunding_wep_app project.
+ASGI config for crowdfunding_web_app project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'crowdfunding_wep_app.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'crowdfunding_web_app.settings')
 
 application = get_asgi_application()

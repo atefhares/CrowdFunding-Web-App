@@ -1,7 +1,7 @@
 # CrowdFunding-Web-App
 ![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/atefhares/CrowdFunding-Wep-App/blob/master/LICENSE)
-![GitHub contributors](https://img.shields.io/github/contributors/atefhares/CrowdFunding-Wep-App)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/atefhares/CrowdFunding-Web-App/blob/master/LICENSE)
+![GitHub contributors](https://img.shields.io/github/contributors/atefhares/CrowdFunding-Web-App)
 ![PyPi Python Versions](https://img.shields.io/pypi/pyversions/yt2mp3.svg)
 
 Crowdfunding is the practice of funding a project or venture by raising small amounts of money from a large number of people, typically via the Internet. Crowdfunding is a form of crowdsourcing and alternative finance.

@@ -3,8 +3,8 @@
   <component name="FacetManager">
     <facet type="django" name="Django">
       <configuration>
-        <option name="rootFolder" value="$MODULE_DIR$/crowdfunding_wep_app" />
-        <option name="settingsModule" value="crowdfunding_wep_app/settings.py" />
+        <option name="rootFolder" value="$MODULE_DIR$/crowdfunding_web_app" />
+        <option name="settingsModule" value="crowdfunding_web_app/settings.py" />
         <option name="manageScript" value="manage.py" />
         <option name="environment" value="&lt;map/&gt;" />
         <option name="doNotUseTestRunner" value="false" />
@@ -14,7 +14,7 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 3.8 (CrowdFunding-Wep-App)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.8 (CrowdFunding-Web-App)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">
