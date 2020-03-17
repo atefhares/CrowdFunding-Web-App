@@ -7,4 +7,4 @@ def handle_view_project_request(request, project_id):
         print("request: ", request)
         print("project_id: ", project_id)
 
-    return render(request, "crowdfunding_web_app/404.html")
+    return render(request, "crowdfunding_web_app/404/404.html")
