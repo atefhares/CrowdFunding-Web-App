@@ -30,3 +30,62 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ProjectPicture(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    pic_path = models.CharField(max_length=45)
+
+    def __str__(self):
+        return self.project
+
+
+class Donation(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.DecimalField
+
+    def __str__(self):
+        return f"{self.user} of ${self.amount} to {self.project}"
+
+
+class ProjectRating(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.IntegerField(max_length=1)
+
+
+class Comment(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=600)
+
+    def __str__(self):
+        return f"{self.user} on {self.project}"
+
+
+class CommentReply(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    reply = models.TextField
+
+    def __str__(self):
+        return f"{self.user} on {self.comment}"
+
+
+class ProjectReport(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    report_description = models.CharField(max_length=600)
+
+    def __str__(self):
+        return f"{self.user} on {self.project}"
+
+
+class CommentReport(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    report_description = models.CharField(max_length=600)
+
+    def __str__(self):
+        return f"{self.user} on {self.comment}"
