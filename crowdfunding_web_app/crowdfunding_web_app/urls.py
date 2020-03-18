@@ -26,7 +26,7 @@ import common_views
 #     # path('', include('homepage.urls')),
 #     path('admin/', admin.site.urls),
 #     path('projects/', include(project_urls)),
-# 
+#
 #     # path("r'^(.*)$'", common_views.render_404_page),
 #     path('404/', common_views.render_404_page),
 # ]
