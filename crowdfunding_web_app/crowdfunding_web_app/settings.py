@@ -37,7 +37,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'homepage',
-    'login_registration',
+    'login_registration.apps.LoginRegistrationConfig',
     'user_profile',
     'projects',
     'django.contrib.admin',
@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts.apps.AccountsConfig',
+    
 ]
 
 MIDDLEWARE = [
@@ -63,7 +65,7 @@ ROOT_URLCONF = 'crowdfunding_web_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
