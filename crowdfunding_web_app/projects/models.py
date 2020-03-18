@@ -26,7 +26,9 @@ class Project(models.Model):
     total_target = models.DecimalField
     start_date = models.DateField
     end_date = models.DateField
-    tags = models.ManyToManyField(Tags, blank=True, verbose_name="List of tags", related_name="number_of_uses")
+    tags = models.ManyToManyField(Tags, blank=True,
+                                  verbose_name="List of tags",
+                                  related_name="number_of_uses")
 
     def __str__(self):
         return self.title
@@ -52,7 +54,7 @@ class Donation(models.Model):
 class ProjectRating(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.IntegerField(max_length=1)
+    rating = models.IntegerField
 
 
 class Comment(models.Model):
