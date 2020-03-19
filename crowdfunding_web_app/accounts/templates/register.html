@@ -1,3 +1,5 @@
+{% extends 'crowdfunding_web_app/base.html' %}
+{% block body %} 
 <div class="page-title background-page">
     <div class="container">
         <h1>Register</h1>
@@ -13,24 +15,41 @@
     <div class="main-content">
         <div class="form-login form-register">
             <h2>Register for Free</h2>
-            <form action="s" method="POST" id="registerForm" class="clearfix">
+            {% include 'alerts.html' %}
+            <form action="{% url 'register' %}" method="POST" id="registerForm" class="clearfix">
+                {% csrf_token %}
                   <div class="field">
-                      <input type="text" value="" name="s" placeholder="First Name" />
+                      <input type="text" value="" name="first_name" id="first_name" placeholder="First Name" / required>
                   </div>
                   <div class="field">
-                      <input type="text" value="" name="s" placeholder="Last Name" />
+                      <input type="text" value="" name="last_name" id="last_name" placeholder="Last Name" required/>
                   </div>
                   <div class="field">
-                      <input type="email" value="" name="s" placeholder="E-mail Address" />
+                      <input type="email" value="" name="email" id="email" placeholder="E-mail Address" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required/>
                   </div>
                   <div class="field">
-                      <input type="text" value="" name="s" placeholder="Password" />
+                      <input type="password" value="" name="password" id="password" placeholder="Password" pattern=".{8,}" required/>
+                  <div class="field">
+                      <br>
+                      <input type="password" value="" name="confirm_password" id="confirm_password" placeholder="Confirm Password" pattern=".{8,}" required/>
+                  <div class="field">
+                    <br>
+                       <input type="text" value="" name="phone_number" id="phone_number" placeholder="Mobile Phone" required/>
+                  </div>
+                  <div class="field">
+                    <br>
+                       <!-- <input type="text" value="" name="country" id="country" placeholder="Country" /> -->
+                  </div>
+                  <div class="field">
+                    <br>
+                       <input type="date" value="" name="birth_date" id="" placeholder="Birth Date" />
                   </div>
                   <div class="inline clearfix">
-                      <button type="submit" value="Send Messager" class="btn-primary">Register Account</button>
+                      <button type="submit" class="btn-primary">Register Account</button>
                       <p>Not a member yet? <a href="login.html">Login Now</a></p>
                   </div>
               </form>
         </div>
     </div>
 </div>	
+{% endblock %}

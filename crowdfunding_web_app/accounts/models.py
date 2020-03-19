@@ -10,7 +10,7 @@ class Country(models.Model):
         return self.name
 
 
-class User(models.Model):
+class UserData(models.Model):
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
     email = models.EmailField(max_length=45)
@@ -19,7 +19,7 @@ class User(models.Model):
     profile_pic = models.ImageField()
     is_activated = models.BooleanField(default=False)
     birth_date = models.DateField(null=True, blank=True)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True, blank=True)
+    # country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True, blank=True)
     facebook_profile_id = models.CharField(null=True, blank=True, max_length=45)
 
     def __str__(self):
