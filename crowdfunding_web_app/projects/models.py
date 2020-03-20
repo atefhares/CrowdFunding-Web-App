@@ -11,7 +11,7 @@ class Category(models.Model):
         return self.name
 
 
-class Tags(models.Model):
+class Tag(models.Model):
     name = models.CharField(max_length=45)
 
     def __str__(self):
@@ -26,7 +26,7 @@ class Project(models.Model):
     total_target = models.DecimalField(max_digits=20, decimal_places=10)
     start_date = models.DateField()
     end_date = models.DateField()
-    tags = models.ManyToManyField(Tags, blank=True,
+    tags = models.ManyToManyField(Tag, blank=True,
                                   verbose_name="List of tags",
                                   related_name="number_of_uses")
 
@@ -91,5 +91,3 @@ class CommentReport(models.Model):
 
     def __str__(self):
         return f"{self.user} on {self.comment}"
-
-
