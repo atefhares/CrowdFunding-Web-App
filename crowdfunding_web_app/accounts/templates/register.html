@@ -16,26 +16,31 @@
         <div class="form-login form-register">
             <h2>Register for Free</h2>
             {% include 'alerts.html' %}
-            <form action="{% url 'register' %}" method="POST" id="registerForm" class="clearfix">
-                {% csrf_token %}
+            <form action="{% url 'register' %}" method="POST" id="registerForm" class="clearfix">{% csrf_token %}
                   <div class="field">
-                      <input type="text" value="" name="first_name" id="first_name" placeholder="First Name" / required>
-                  </div>
+                      <input type="text" value="" name="first_name" id="first_name" placeholder="First Name(Required)" required/>
+                      <small id="first_name_error" class="text-danger"></small>
+                    </div>
                   <div class="field">
-                      <input type="text" value="" name="last_name" id="last_name" placeholder="Last Name" required/>
-                  </div>
+                      <input type="text" value="" name="last_name" id="last_name" placeholder="Last Name(Required)" required/>
+                      <small id="last_name_error" class="text-danger"></small>
+                    </div>
                   <div class="field">
-                      <input type="email" value="" name="email" id="email" placeholder="E-mail Address" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required/>
-                  </div>
+                      <input type="email" value="" name="email" id="email" placeholder="E-mail Address(Required)" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required/>
+                      <small id="email_error" class="text-danger"></small>
+                    </div>
                   <div class="field">
-                      <input type="password" value="" name="password" id="password" placeholder="Password" pattern=".{8,}" required/>
-                  <div class="field">
+                      <input type="password" value="" name="password" id="password" placeholder="Password(Required)" pattern=".{8,}" required/>
+                      <small id="password_error" class="text-danger"></small>
+                      <div class="field">
                       <br>
                       <input type="password" value="" name="confirm_password" id="confirm_password" placeholder="Confirm Password" pattern=".{8,}" required/>
-                  <div class="field">
+                      <small id="confirm_password_error" class="text-danger"></small>
+                      <div class="field">
                     <br>
-                       <input type="text" value="" name="phone_number" id="phone_number" placeholder="Mobile Phone" required/>
-                  </div>
+                       <input type="text" value="" name="phone_number" id="phone_number" placeholder="Mobile Phone(Required)" pattern="^01[012][0-9]{8}" required/>
+                       <small id="phone_number_error" class="text-danger"></small>
+                    </div>
                   <div class="field">
                     <br>
                        <!-- <input type="text" value="" name="country" id="country" placeholder="Country" /> -->

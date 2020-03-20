@@ -19,10 +19,10 @@
 						<form action="{% url 'login' %}" method="POST" id="loginForm" class="clearfix">
 							{% csrf_token %}
 			  				<div class="field">
-			  					<input type="email" value="" name="s" placeholder="E-mail Address" />
+			  					<input type="email" value="" name="login_email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  placeholder="E-mail Address" />
 			  				</div>
 			  				<div class="field">
-			  					<input type="text" value="" name="s" placeholder="Password" />
+			  					<input type="password" value="" name="login_password" pattern=".{8,}" placeholder="Password" />
 			  				</div>
 			  				<div class="inline clearfix">
 						  		<button type="submit" value="Send Messager" class="btn-primary">Login</button>
