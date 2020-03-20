@@ -19,13 +19,13 @@ class Tags(models.Model):
 
 
 class Project(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.PROTECT)
     title = models.CharField(max_length=45)
-    description = models.TextField
+    description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    total_target = models.DecimalField
-    start_date = models.DateField
-    end_date = models.DateField
+    total_target = models.DecimalField()
+    start_date = models.DateField()
+    end_date = models.DateField()
     tags = models.ManyToManyField(Tags, blank=True,
                                   verbose_name="List of tags",
                                   related_name="number_of_uses")
@@ -43,9 +43,9 @@ class ProjectPicture(models.Model):
 
 
 class Donation(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    amount = models.DecimalField
+    project = models.ForeignKey(Project, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL)
+    amount = models.DecimalField()
 
     def __str__(self):
         return f"{self.user} of ${self.amount} to {self.project}"
@@ -53,8 +53,8 @@ class Donation(models.Model):
 
 class ProjectRating(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.IntegerField
+    user = models.ForeignKey(User, on_delete=models.SET_NULL)
+    rating = models.IntegerField()
 
 
 class Comment(models.Model):
@@ -69,14 +69,14 @@ class Comment(models.Model):
 class CommentReply(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
-    reply = models.TextField
+    reply = models.TextField()
 
     def __str__(self):
         return f"{self.user} on {self.comment}"
 
 
 class ProjectReport(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     report_description = models.CharField(max_length=600)
 
@@ -85,9 +85,11 @@ class ProjectReport(models.Model):
 
 
 class CommentReport(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     report_description = models.CharField(max_length=600)
 
     def __str__(self):
         return f"{self.user} on {self.comment}"
+
+
