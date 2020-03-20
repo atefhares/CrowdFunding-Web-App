@@ -7,5 +7,9 @@ def handle_view_project_request(request, project_id):
         print("request: ", request)
         print("project_id: ", project_id)
 
+<<<<<<< HEAD
     # return render(request, "crowdfunding_web_app/404/404.html")
     return redirect('/404')
+=======
+    return render(request, "projects/project_details.html")
+>>>>>>> master
