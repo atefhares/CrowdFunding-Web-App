@@ -19,6 +19,18 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from projects import urls as project_urls
+import common_views
+
+# urlpatterns = [
+#     # path('', include('homepage.urls')),
+#     path('admin/', admin.site.urls),
+#     path('projects/', include(project_urls)),
+#
+#     # path("r'^(.*)$'", common_views.render_404_page),
+#     path('404/', common_views.render_404_page),
+# ]
+# # handler404 = common_views.render_404_page
+
 
 urlpatterns = [
                   path('', include('homepage.urls')),

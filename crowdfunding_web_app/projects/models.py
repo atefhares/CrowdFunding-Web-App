@@ -23,7 +23,7 @@ class Project(models.Model):
     title = models.CharField(max_length=45)
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    total_target = models.DecimalField()
+    total_target = models.DecimalField(max_digits=20, decimal_places=10)
     start_date = models.DateField()
     end_date = models.DateField()
     tags = models.ManyToManyField(Tags, blank=True,
@@ -43,9 +43,9 @@ class ProjectPicture(models.Model):
 
 
 class Donation(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.PROTECT)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL)
-    amount = models.DecimalField()
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    amount = models.DecimalField(max_digits=20, decimal_places=10)
 
     def __str__(self):
         return f"{self.user} of ${self.amount} to {self.project}"
@@ -53,7 +53,7 @@ class Donation(models.Model):
 
 class ProjectRating(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField()
 
 

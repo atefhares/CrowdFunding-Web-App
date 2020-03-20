@@ -15,9 +15,9 @@ import os
 # these three lines swap the stdlib sqlite3 lib with the pysqlite3 package
 import sys
 
-__import__('pysqlite3')
+# __import__('pysqlite3')
 
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +31,7 @@ SECRET_KEY = '1bz=w2=b-=o#&9h3it@7#&rh!4bto-wwfuv2#k@ajr)b786z1w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
