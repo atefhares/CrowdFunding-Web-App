@@ -95,6 +95,15 @@ def login(request):
         email = request.POST['login_email']
         password = request.POST['login_password']
         
+
+        user = auth.authenticate(username=email,password=password)
+        if user is not None:
+            auth.login(request,user)
+            messages.success(request,"you are logged in!")
+            return render(request, 'login.html')
+        else:
+            messages.error(request,"Invalid Credentials")
+            return render(request, 'login.html')
         
     else:
         return render(request, 'login.html')
