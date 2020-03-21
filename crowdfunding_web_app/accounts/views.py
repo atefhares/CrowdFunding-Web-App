@@ -48,7 +48,7 @@ def register(request):
 
         email = request.POST['email']
         validate_email(email)
-        if validate_email == True:
+        if validate_email(email) == True:
             messages.error(request, "Invalid Email Format:example@domain.com")
 
         phone_number = request.POST['phone_number']
@@ -95,7 +95,13 @@ def login(request):
         email = request.POST['login_email']
         password = request.POST['login_password']
         
+        email_validation_result = validate_email(email)
+        if email_validation_result:
+            messages.error(request, "Invalid Email")
 
+        password_validation_result = validate_password(password)        
+        if password_validation_result:
+            messages.error(request,"Password Must Be More Than Or Equal 8 Characters")
         user = auth.authenticate(username=email,password=password)
         if user is not None:
             auth.login(request,user)
