@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
-from .models import UserData
+from .models import UserProfile
 import re
 
-
+from django.contrib.auth import get_user_model
+from django.contrib.auth.backends import ModelBackend
 
 def validate_string(name_field):
     if name_field == '':
@@ -63,20 +64,24 @@ def register(request):
             messages.error(request, "Password Must Be At Least 8 Character")
         confirm_password = request.POST['confirm_password']
         if password == confirm_password:
-            if UserData.objects.filter(email=email).exists():
+            if User.objects.filter(email=email).exists():
                 messages.error(request, "This Email already exists")
                 return redirect('register')
             elif not validate_email(email) and not validate_mobile_phone(phone_number) and not validate_string(first_name) and not validate_string(last_name) and not validate_password(password):
-                new_user = UserData(
-                    first_name=first_name,
-                    last_name=last_name,
-                    email=email,
-                    password= password,
+                profile = UserProfile(
                     phone_number=phone_number,
                     birth_date=birth_date 
                     )
-                # new_user = User.objects.create_user(username=username,last_name=last_name,email=email,password=password,birth_date=birth_date)
-                new_user.save()
+                user = User.objects.create_user(
+                    username=email,
+                    first_name=first_name,
+                    email=email,
+                    password=password,
+                    last_name=last_name
+                    )
+                
+                profile.user = user
+                profile.save()
                 messages.success(request,'Registered, Successfully! ')
                 return redirect('login') 
         else:
@@ -85,14 +90,14 @@ def register(request):
     return render(request, 'register.html')
 
 
-
 def login(request):
     if request.method == 'POST':
-        print("SUCCESS")
-        return redirect('login')
+        email = request.POST['login_email']
+        password = request.POST['login_password']
+        
+        
     else:
         return render(request, 'login.html')
-
 
 # def logout(request):
 #     return redirect(request, 'acounts/index.html')
