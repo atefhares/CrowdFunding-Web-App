@@ -1,5 +1,8 @@
+
 {% extends 'crowdfunding_web_app/base.html' %}
+
 {% block body %} 
+
 <div class="page-title background-page">
     <div class="container">
         <h1>Register</h1>
@@ -56,5 +59,9 @@
               </form>
         </div>
     </div>
-</div>	
+</div>
+{% load static %}
+
+<script src='{% static "libs/js/registerFormpreventDefault.js"  %}'></script>
 {% endblock %}
+

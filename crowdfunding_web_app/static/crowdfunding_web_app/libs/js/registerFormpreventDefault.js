@@ -14,6 +14,9 @@ const password_error = document.getElementById("password_error");
 const confirm_password_error = document.getElementById("confirm_password_error")
 const phone_number_error = document.getElementById("phone_number_error")
 
+
+
+
 const csrf_token = document.getElementsByName("csrfmiddlewaretoken")
 registerForm.onsubmit = (e) => {
     e.preventDefault() 
@@ -77,3 +80,6 @@ function validateEmail(email){
     return re.test(String(email).toLowerCase())
 
 }
+
+
+
