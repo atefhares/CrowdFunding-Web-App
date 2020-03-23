@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'login_registration',
     'user_profile',
     'projects',
+    'django_cleanup',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
