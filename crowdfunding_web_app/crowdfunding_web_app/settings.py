@@ -31,7 +31,7 @@ SECRET_KEY = '1bz=w2=b-=o#&9h3it@7#&rh!4bto-wwfuv2#k@ajr)b786z1w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'login_registration',
     'user_profile',
     'projects',
+    'admins',
+    'django_cleanup',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,5 +130,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(STATIC_ROOT, 'crowdfunding_web_app/'),
 ]
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
