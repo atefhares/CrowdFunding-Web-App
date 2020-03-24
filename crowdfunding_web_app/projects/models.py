@@ -44,7 +44,7 @@ def get_upload_path_project_picture(instance, filename):
 class ProjectPicture(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     pic_path = models.FileField(db_column="pic_path",
-                                 upload_to=get_upload_path_project_picture)
+                                upload_to=get_upload_path_project_picture)
 
     def __str__(self):
         return f"{self.project.title} | {str(self.pic_path)}"
@@ -84,7 +84,7 @@ class CommentReply(models.Model):
 
 
 class ProjectReport(models.Model):
-    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     report_description = models.CharField(max_length=600)
 
