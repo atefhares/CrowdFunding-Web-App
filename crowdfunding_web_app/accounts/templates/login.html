@@ -16,21 +16,21 @@
 					<div class="form-login">
 						<h2>Log in with your account</h2>
 						{% include 'alerts.html' %}
-						<form action="{% url 'login' %}" method="POST" id="loginForm" class="clearfix">
-							{% csrf_token %}
+						<form action="{% url 'login' %}" method="POST" id="loginForm" class="clearfix">{% csrf_token %}
+		
 			  				<div class="field">
-								<input type="email" value="" id="login_email" name="login_email" placeholder="E-mail Address" />
+
 								<small id="login_email_error"  class="text-danger"></small>
-								<!-- <input type="email" value="" name="login_email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  placeholder="E-mail Address" /> -->
+								<input type="email" value="" id= "login_email" name="login_email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  placeholder="E-mail Address" required/>
 			  				</div>
 			  				<div class="field">
-								  <!-- <input type="password" value="" name="login_password" pattern=".{8,}" placeholder="Password" /> -->
-			  					<input type="password" value="" id="login_password" name="login_password"  placeholder="Password" />
+								  <input type="password" value="" id="login_password" name="login_password" pattern=".{8,}" placeholder="Password" required/>
+
 								  <small id="login_password_error" class="text-danger"></small>
 			  				</div>
 			  				<div class="inline clearfix">
 						  		<button type="submit" value="Send Messager" class="btn-primary">Login</button>
-						  		<p>Not a member yet? <a href="register.html">Register Now</a></p>
+						  		<p>Not a member yet? <a href="{% url 'register' %}">Register Now</a></p>
 						  	</div>
 					  	</form>
 					</div>

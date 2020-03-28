@@ -41,7 +41,8 @@
                       <small id="confirm_password_error" class="text-danger"></small>
                       <div class="field">
                     <br>
-                       <input type="text" value="" name="phone_number" id="phone_number" placeholder="Mobile Phone(Required)" pattern="^01[012][0-9]{8}" required/>
+                    <!-- pattern="^01[012][0-9]{8}" -->
+                       <input type="text" value="" name="phone_number" id="phone_number" placeholder="Mobile Phone(Required)"  />
                        <small id="phone_number_error" class="text-danger"></small>
                     </div>
                   <div class="field">
@@ -54,7 +55,7 @@
                   </div>
                   <div class="inline clearfix">
                       <button type="submit" class="btn-primary">Register Account</button>
-                      <p>Not a member yet? <a href="login.html">Login Now</a></p>
+                      <p>Not a member yet? <a href="{% url 'login' %}">Login Now</a></p>
                   </div>
               </form>
         </div>

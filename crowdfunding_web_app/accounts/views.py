@@ -3,7 +3,7 @@ from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from .models import UserProfile
 import re
-
+from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 
@@ -66,6 +66,7 @@ def register(request):
         if password == confirm_password:
             if User.objects.filter(email=email).exists():
                 messages.error(request, "This Email already exists")
+                
                 return redirect('register')
             elif not validate_email(email) and not validate_mobile_phone(phone_number) and not validate_string(first_name) and not validate_string(last_name) and not validate_password(password):
                 profile = UserProfile(
@@ -82,6 +83,15 @@ def register(request):
                 
                 profile.user = user
                 profile.save()
+                to_email = ['mohamed.helmy11022@gmail.com' , email]
+                send_mail(
+                'Verification Mail',
+                'Thanks for registeration' ,
+                'mohamed.helmy11022@gmail.com',
+                to_email,
+                # fail_silently=False,
+                )
+                print("email sent yactaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
                 messages.success(request,'Registered, Successfully! ')
                 return redirect('login') 
         else:
@@ -106,7 +116,8 @@ def login(request):
         if user is not None:
             auth.login(request,user)
             messages.success(request,"you are logged in!")
-            return render(request, 'login.html')
+
+            return render(request, 'index.html')
         else:
             messages.error(request,"Invalid Credentials")
             return render(request, 'login.html')

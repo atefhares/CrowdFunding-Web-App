@@ -141,3 +141,9 @@ MESSAGE_TAGS = {
 }
 
 
+#Email Config
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER='mohamed.helmy11022@gmail.com'
+EMAIL_HOST_PASSWORD = 'hamada11022H'
+EMAIL_USE_TLS = True

@@ -5,11 +5,15 @@ const login_password = document.getElementById("login_password")
 const login_email_error = document.getElementById("login_email_error")
 const login_password_error = document.getElementById("login_password_error")
 
-loginForm.addEventListener("submit", function (e) {
-    e.preventDefault()
-    validateLoginForm()
 
-})
+
+loginForm.onsubmit = (e) => {
+    e.preventDefault()
+    validateLoginForm() 
+    if(validateLoginForm()){
+        loginForm.submit();
+    }                        
+}
 
 function validateLoginForm() {
     login_email_error.innerHTML = ""

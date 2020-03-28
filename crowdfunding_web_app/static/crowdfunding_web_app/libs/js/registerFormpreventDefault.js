@@ -72,6 +72,15 @@ function validateForm() {
         phone_number_error.innerHTML = "Phone Number can not be empty"
         isValid = false;
     }
+    else{
+        
+        // var phone_re  = /^(01)[012][0-9]{8}/
+        var phone_re = /^01[012][0-9]{8}/
+        if (!phone_re.test(phone_number.value)){
+            phone_number_error.innerHTML = "Phone Number must Be 11 digits and starts with {010 or  011 or 012 }"
+            isValid = false
+        }
+    }
     return isValid;
 }
 
