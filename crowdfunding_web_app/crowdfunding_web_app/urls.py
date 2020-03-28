@@ -23,10 +23,13 @@ from projects import urls as project_urls
 from user_profile import urls as profile_urls
 
 urlpatterns = [
+
                   path('', include('homepage.urls')),
                   path('admin/', admin.site.urls),
                   path('projects/', include(project_urls)),
                   path('profile/', include(profile_urls)),
+                  path('accounts/', include('accounts.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 urlpatterns += staticfiles_urlpatterns()
