@@ -20,11 +20,13 @@ from django.urls import path
 from django.conf.urls import include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from projects import urls as project_urls
+from user_profile import urls as profile_urls
 
 urlpatterns = [
                   path('', include('homepage.urls')),
                   path('admin/', admin.site.urls),
                   path('projects/', include(project_urls)),
+                  path('profile/', include(profile_urls)),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()
