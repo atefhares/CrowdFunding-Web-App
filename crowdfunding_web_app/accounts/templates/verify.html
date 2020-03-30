@@ -1,0 +1,12 @@
+{% autoescape off %}
+<h3>Hello, {{ username }}</h3>
+<p>Please activate your acccount for {{ email }} by clicking the button below:</p>
+<p>
+    <a href="http://localhost:8000/accounts/activate/{{ key }}"> <button type="button" class="btn btn-primary">Verify Email</button> </a>
+</p>
+<p>Once you activate you can login!</p>
+<p>Thank you,</p>
+<h3>CrowdFunding</h3>
+<h3><b>Note:</b></h3>
+<p>This email will be expired after 24 houres of the sending time.</p>
+{% endautoescape %}
