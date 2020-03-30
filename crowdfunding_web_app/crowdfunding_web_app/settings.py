@@ -36,8 +36,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'homepage',
-    'login_registration.apps.LoginRegistrationConfig',
     'user_profile',
     'projects',
     'django.contrib.admin',
@@ -46,8 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts.apps.AccountsConfig',
-
     
 ]
 
@@ -140,10 +138,10 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
 
-
+# https://myaccount.google.com/security
 #Email Config
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER='mohamed.helmy11022@gmail.com'
-EMAIL_HOST_PASSWORD = 'hamada11022H'
+EMAIL_HOST_USER='crowdfundingwebapp@gmail.com'
+EMAIL_HOST_PASSWORD = 'ITIintake40'
 EMAIL_USE_TLS = True
