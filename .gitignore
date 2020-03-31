@@ -127,4 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-crowdfunding_web_app/crowdfunding_web_app/secrets.py
+/crowdfunding_web_app/crowdfunding_web_app/secrets.py
+secrets.py
+crowdfunding_web_app/secrets.py
