@@ -81,13 +81,18 @@ def register(request):
                 messages.error(request, "This Email already exists")
 
                 return redirect('register')
-            elif not validate_email(email) and not validate_mobile_phone(phone_number) and not validate_string(
-                    first_name) and not validate_string(last_name) and not validate_password(password):
-                profile = UserProfile(
-                    phone_number=phone_number,
-                    birth_date=birth_date,
-                    key=random_string_generator(size=45),
-                )
+            elif not validate_email(email) and not validate_mobile_phone(phone_number) and not validate_string(first_name) and not validate_string(last_name) and not validate_password(password):
+                if birth_date == '':
+                    profile = UserProfile(
+                        phone_number=phone_number,
+                        key = random_string_generator(size=45), 
+                        )
+                else:
+                        profile = UserProfile(
+                        phone_number=phone_number,
+                        birth_date= birth_date,
+                        key = random_string_generator(size=45), 
+                        )
                 user = User.objects.create_user(
                     username=email,
                     first_name=first_name,
