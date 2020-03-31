@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as messages
 
 # these three lines swap the stdlib sqlite3 lib with the pysqlite3 package
 import sys
@@ -148,3 +149,12 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'crowdfundingwebapp@gmail.com'
 EMAIL_HOST_PASSWORD = 'ITIintake40'
 EMAIL_USE_TLS = True
+
+# message tags for messages framework ease of use with bootstrap
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
