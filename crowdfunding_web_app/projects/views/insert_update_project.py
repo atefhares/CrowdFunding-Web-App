@@ -13,11 +13,11 @@ def handle_create_new_project_request(request):
     print(request.POST)
     if request.method == "GET":
         all_categories = Category.objects.all()
-        all_countries = Country.objects.all()
+        # all_countries = Country.objects.all()
 
         render_data = {
             "categories": all_categories,
-            "countries": all_countries
+            # "countries": all_countries
         }
         return render(request, "projects/create_project.html", render_data)
     else:

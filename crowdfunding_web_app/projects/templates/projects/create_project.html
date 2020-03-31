@@ -98,8 +98,12 @@
                         <div class="field-select">
                             <select name="country">
                                 {% for country in countries %}
-                                    <option value="{{ country.id }}">{{ country.name }}</option>
+                                    <option value="{{ country.code }}">{{ country.name }}</option>
                                 {% endfor %}
+
+{#                                {% for country in countries %}#}
+{#                                    <option value="{{ country.id }}">{{ country.name }}</option>#}
+{#                                {% endfor %}#}
                             </select>
                         </div>
                     </div>
@@ -109,7 +113,7 @@
                     <span class="label-desc">To help backers find your project, select a category that best represents your project.</span>
                     <div class="field-select">
                         <select name="category" id="ccat">
-{#                            <option value="">Select a Category</option>#}
+                            {#                            <option value="">Select a Category</option>#}
                             {% for category in categories %}
                                 <option value="{{ category.id }}">{{ category.name }}</option>
                             {% endfor %}

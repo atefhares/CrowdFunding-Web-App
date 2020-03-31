@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'projects',
     'admins',
     'django_cleanup',
+    'django_countries',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
