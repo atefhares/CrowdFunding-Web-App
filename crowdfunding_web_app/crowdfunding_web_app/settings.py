@@ -38,6 +38,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'accounts',
     'homepage',
+    'login_registration',
     'user_profile',
     'projects',
     'admins',
