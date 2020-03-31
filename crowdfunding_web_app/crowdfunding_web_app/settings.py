@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as messages
 
 # these three lines swap the stdlib sqlite3 lib with the pysqlite3 package
 import sys
@@ -31,24 +32,25 @@ SECRET_KEY = '1bz=w2=b-=o#&9h3it@7#&rh!4bto-wwfuv2#k@ajr)b786z1w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'homepage',
-    'login_registration.apps.LoginRegistrationConfig',
     'user_profile',
     'projects',
+    'admins',
+    'django_cleanup',
+    'django_countries',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts.apps.AccountsConfig',
 
-    
 ]
 
 MIDDLEWARE = [
@@ -131,19 +133,29 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(STATIC_ROOT, 'crowdfunding_web_app/'),
 ]
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-
 from django.contrib.messages import constants as messages
+
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
 
-
-#Email Config
+# https://myaccount.google.com/security
+# Email Config
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER='mohamed.helmy11022@gmail.com'
-EMAIL_HOST_PASSWORD = 'hamada11022H'
+EMAIL_HOST_USER = 'crowdfundingwebapp@gmail.com'
+EMAIL_HOST_PASSWORD = 'ITIintake40'
 EMAIL_USE_TLS = True
+
+# message tags for messages framework ease of use with bootstrap
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}

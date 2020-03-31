@@ -15,21 +15,29 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib import admin, staticfiles
+import common_views
+from django.contrib import admin
 from django.urls import path
-from django.conf.urls import include, url
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls import include
 from projects import urls as project_urls
 from user_profile import urls as profile_urls
 
-urlpatterns = [
 
+# urlpatterns = [
+#     # path('', include('homepage.urls')),
+#     path('admin/', admin.site.urls),
+#     path('projects/', include(project_urls)),
+#
+#     # path("r'^(.*)$'", common_views.render_404_page),
+#     path('404/', common_views.render_404_page),
+# ]
+# # handler404 = common_views.render_404_page
+
+
+urlpatterns = [
                   path('', include('homepage.urls')),
                   path('admin/', admin.site.urls),
-                  path('projects/', include(project_urls)),
-                  path('profile/', include(profile_urls)),
                   path('accounts/', include('accounts.urls')),
+                  path('profile/', include(profile_urls)),
+                  path('projects/', include(project_urls)),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-urlpatterns += staticfiles_urlpatterns()

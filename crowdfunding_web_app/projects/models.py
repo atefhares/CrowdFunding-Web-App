@@ -1,5 +1,8 @@
+import os
+
+from django.conf.global_settings import MEDIA_URL
 from django.db import models
-from login_registration.models import User
+from accounts.models import User
 
 
 # Create your models here.
@@ -11,7 +14,7 @@ class Category(models.Model):
         return self.name
 
 
-class Tags(models.Model):
+class Tag(models.Model):
     name = models.CharField(max_length=45)
 
     def __str__(self):
@@ -19,14 +22,14 @@ class Tags(models.Model):
 
 
 class Project(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.PROTECT)
     title = models.CharField(max_length=45)
-    description = models.TextField
+    description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    total_target = models.DecimalField
-    start_date = models.DateField
-    end_date = models.DateField
-    tags = models.ManyToManyField(Tags, blank=True,
+    total_target = models.DecimalField(max_digits=20, decimal_places=10)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    tags = models.ManyToManyField(Tag, blank=True,
                                   verbose_name="List of tags",
                                   related_name="number_of_uses")
 
@@ -34,18 +37,23 @@ class Project(models.Model):
         return self.title
 
 
+def get_upload_path_project_picture(instance, filename):
+    return os.path.join(MEDIA_URL, 'project_pictures', instance.project.title, filename)
+
+
 class ProjectPicture(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    pic_path = models.CharField(max_length=45)
+    pic_path = models.FileField(db_column="pic_path",
+                                upload_to=get_upload_path_project_picture)
 
     def __str__(self):
-        return self.project
+        return f"{self.project.title} | {str(self.pic_path)}"
 
 
 class Donation(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    amount = models.DecimalField
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    amount = models.DecimalField(max_digits=20, decimal_places=10)
 
     def __str__(self):
         return f"{self.user} of ${self.amount} to {self.project}"
@@ -54,7 +62,7 @@ class Donation(models.Model):
 class ProjectRating(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.IntegerField
+    rating = models.IntegerField()
 
 
 class Comment(models.Model):
@@ -69,14 +77,14 @@ class Comment(models.Model):
 class CommentReply(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
-    reply = models.TextField
+    reply = models.TextField()
 
     def __str__(self):
         return f"{self.user} on {self.comment}"
 
 
 class ProjectReport(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     report_description = models.CharField(max_length=600)
 
@@ -85,7 +93,7 @@ class ProjectReport(models.Model):
 
 
 class CommentReport(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     report_description = models.CharField(max_length=600)
 
