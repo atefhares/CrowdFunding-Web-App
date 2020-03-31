@@ -121,7 +121,7 @@ def register(request):
         else:
             messages.error(request, "Passwords don't match")
             return redirect('register')
-    return render(request, 'register.html')
+    return render(request, 'accounts/register.html')
 
 
 def random_string_generator(size=10, chars=string.ascii_lowercase + string.digits):
@@ -137,8 +137,8 @@ def send_activation(user, profile):  # responsoble for sending the mail
         'email': user.email,
         'username': user.first_name
     }
-    html_ = get_template("verify.html").render(context)
-    txt_ = get_template("verify.txt").render(context)
+    html_ = get_template("accounts/verify.html").render(context)
+    txt_ = get_template("accounts/verify.txt").render(context)
     mail_subject = 'Verification Mail'
     mail_sender = 'crowdfundingwebapp@gmail.com'
     mail_reciever = [user.email]
@@ -158,7 +158,7 @@ def activate(request, key):
         user_profile = UserProfile.objects.get(key=key)
     except(UserProfile.DoesNotExist, OverflowError, ValueError, TypeError):
         user_profile = None
-        return render(request, 'verify.html')
+        return render(request, 'accounts/verify.html')
     utc = pytz.UTC
     now = datetime.datetime.now().replace(tzinfo=utc)
     expires = user_profile.expires.replace(tzinfo=utc)
@@ -169,12 +169,12 @@ def activate(request, key):
             user_profile.is_active = True
             user_profile.save()
             messages.success(request, "Your mail is successfully activated.")
-            return render(request, 'login.html')
+            return render(request, 'accounts/login.html')
         elif user_profile.once_activation == True and user_profile.is_active == True:
             messages.info(request, "Your email is already activated")
-            return render(request, 'login.html')
+            return render(request, 'accounts/login.html')
     else:
-        return render(request, 'verify.html')
+        return render(request, 'accounts/verify.html')
 
 
 def login(request):
@@ -195,19 +195,19 @@ def login(request):
             user_profie = UserProfile.objects.get(user__email=email)
         except(UserProfile.DoesNotExist, OverflowError, ValueError, TypeError):
             messages.error(request, "Invalid Credentials")
-            return render(request, 'login.html')
+            return render(request, 'accounts/login.html')
         if user is not None and user_profie.is_active == True:
             auth.login(request, user)
             return redirect('/')
         elif user is not None and user_profie.is_active == False:
             messages.error(request, "This email is not activated yet, If you activation email is expired ClickHere")
-            return render(request, 'login.html')
+            return render(request, 'accounts/login.html')
         else:
             messages.error(request, "Invalid Credentials")
-            return render(request, 'login.html')
+            return render(request, 'accounts/login.html')
 
     else:
-        return render(request, 'login.html')
+        return render(request, 'accounts/login.html')
 
 # def logout(request):
 #     return redirect(request, 'acounts/index.html')
