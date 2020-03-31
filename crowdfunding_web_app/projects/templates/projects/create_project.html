@@ -16,6 +16,15 @@
     </div><!-- .page-title -->
     <div class="campaign-form form-update">
         <div class="container">
+            <br/>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <br/>
             <form action="#" method="post">{% csrf_token %}
                 <h4>Start a project</h4>
                 <div class="field">
@@ -101,9 +110,9 @@
                                     <option value="{{ country.code }}">{{ country.name }}</option>
                                 {% endfor %}
 
-{#                                {% for country in countries %}#}
-{#                                    <option value="{{ country.id }}">{{ country.name }}</option>#}
-{#                                {% endfor %}#}
+                                {#                                {% for country in countries %}#}
+                                {#                                    <option value="{{ country.id }}">{{ country.name }}</option>#}
+                                {#                                {% endfor %}#}
                             </select>
                         </div>
                     </div>
