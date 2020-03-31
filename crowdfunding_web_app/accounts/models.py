@@ -7,11 +7,11 @@ from datetime import timedelta
 import datetime
 
 
-# class Country(models.Model):
-#     name = models.CharField(max_length=45)
-#
-#     def __str__(self):
-#         return self.name
+class Country(models.Model):
+    name = models.CharField(max_length=45)
+
+    def __str__(self):
+        return self.name
 
 
 def one_day_hence():
@@ -26,7 +26,7 @@ class UserProfile(models.Model):
 
     birth_date = models.DateField(null=True, default=None)
     country = CountryField(null=True, blank=True)
-    facebook_profile = models.CharField(
+    facebook_profile_id = models.CharField(
         null=True, blank=True, max_length=45)
     time_stamp = models.DateTimeField(default=timezone.now)
     expires = models.DateTimeField(default=one_day_hence)

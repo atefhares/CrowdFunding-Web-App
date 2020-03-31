@@ -15,4 +15,4 @@ class ProfileUpdateForm (forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields =['phone_number','birth_date','facebook_profile','country','profile_pic']
+        fields =['phone_number','birth_date','facebook_profile_id','country','profile_pic']

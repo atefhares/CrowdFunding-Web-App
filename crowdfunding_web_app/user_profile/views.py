@@ -1,5 +1,4 @@
 # from django.shortcuts import render
-from login_registration.models import User, Country
 from django.shortcuts import render,redirect
 from .forms import UserUpdateForm,ProfileUpdateForm
 from django.contrib import messages
