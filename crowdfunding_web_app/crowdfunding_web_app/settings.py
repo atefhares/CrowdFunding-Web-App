@@ -39,18 +39,18 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'accounts',
     'homepage',
-    'login_registration',
     'user_profile',
     'projects',
     'admins',
     'django_cleanup',
+    'django_countries',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
 ]
 
 MIDDLEWARE = [
@@ -137,17 +137,17 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-
 from django.contrib.messages import constants as messages
+
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
 
 # https://myaccount.google.com/security
-#Email Config
+# Email Config
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER='crowdfundingwebapp@gmail.com'
+EMAIL_HOST_USER = 'crowdfundingwebapp@gmail.com'
 EMAIL_HOST_PASSWORD = 'ITIintake40'
 EMAIL_USE_TLS = True
 
