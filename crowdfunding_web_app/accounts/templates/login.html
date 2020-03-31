@@ -15,7 +15,7 @@
 				<div class="main-content">
 					<div class="form-login">
 						<h2>Log in with your account</h2>
-						{% include 'alerts.html' %}
+						{% include 'crowdfunding_web_app/alerts.html' %}
 						<form action="{% url 'login' %}" method="POST" id="loginForm" class="clearfix">{% csrf_token %}
 		
 			  				<div class="field">

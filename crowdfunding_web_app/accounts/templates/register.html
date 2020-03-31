@@ -18,7 +18,7 @@
     <div class="main-content">
         <div class="form-login form-register">
             <h2>Register for Free</h2>
-            {% include 'alerts.html' %}
+            {% include 'crowdfunding_web_app/alerts.html' %}
             <form action="{% url 'register' %}" method="POST" id="registerForm" class="clearfix">{% csrf_token %}
                   <div class="field">
                       <input type="text" value="" name="first_name" id="first_name" placeholder="First Name(Required)" required/>
