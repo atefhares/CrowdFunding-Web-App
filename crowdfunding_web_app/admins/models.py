@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-from login_registration.models import User
+from accounts.models import User
 from projects.models import Project
 
 
