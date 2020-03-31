@@ -15,11 +15,18 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls.static import static
+import common_views
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from projects import urls as project_urls
-import common_views
+from user_profile import urls as profile_urls
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.conf.urls import url, include
+from django.contrib import admin
+
 
 # urlpatterns = [
 #     # path('', include('homepage.urls')),
@@ -36,5 +43,6 @@ urlpatterns = [
                   path('', include('homepage.urls')),
                   path('admin/', admin.site.urls),
                   path('accounts/', include('accounts.urls')),
+                  path('profile/', include(profile_urls)),
                   path('projects/', include(project_urls)),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

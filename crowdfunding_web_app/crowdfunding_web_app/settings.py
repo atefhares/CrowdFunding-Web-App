@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from .secrets import *
 from django.contrib.messages import constants as messages
 
 # these three lines swap the stdlib sqlite3 lib with the pysqlite3 package
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'accounts',
     'homepage',
     'user_profile',
+    'crispy_forms',
     'projects',
     'admins',
     'django_cleanup',
@@ -133,8 +135,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(STATIC_ROOT, 'crowdfunding_web_app/'),
 ]
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
 from django.contrib.messages import constants as messages
@@ -143,13 +145,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
 
-# https://myaccount.google.com/security
-# Email Config
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'crowdfundingwebapp@gmail.com'
-EMAIL_HOST_PASSWORD = 'ITIintake40'
-EMAIL_USE_TLS = True
+
 
 # message tags for messages framework ease of use with bootstrap
 MESSAGE_TAGS = {
