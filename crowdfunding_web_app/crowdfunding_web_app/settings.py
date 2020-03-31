@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts',
     'homepage',
     'user_profile',
+    'crispy_forms',
     'projects',
     'admins',
     'django_cleanup',
@@ -134,8 +135,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(STATIC_ROOT, 'crowdfunding_web_app/'),
 ]
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
 from django.contrib.messages import constants as messages

@@ -22,7 +22,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True)
     phone_number = models.CharField(max_length=45, default=None, null=True)
-    profile_pic = models.ImageField(null=True, blank=True, default=None)
+    profile_pic = models.ImageField(default='profile_pic/jo.jpg',upload_to='profile_pic')
+
     birth_date = models.DateField(null=True, default=None)
     country = CountryField(null=True, blank=True)
     facebook_profile_id = models.CharField(
@@ -35,4 +36,4 @@ class UserProfile(models.Model):
     once_activation = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.email
+        return f'{self.user.email} UserProfile'
