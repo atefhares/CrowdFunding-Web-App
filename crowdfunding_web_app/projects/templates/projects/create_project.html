@@ -14,7 +14,7 @@
     </div><!-- .page-title -->
     <div class="campaign-form form-update">
         <div class="container">
-            <form action="#">
+            <form action="#" method="post">{% csrf_token %}
                 <h4>Start a project</h4>
                 <div class="field">
                     <label for="title">Project Title *</label>
@@ -24,7 +24,7 @@
                 <div class="field">
                     <label for="campaigndesc">Project Description *</label>
                     <span class="label-desc">Provide a short description that best describes your project to your audience.</span>
-                    <textarea rows="4" id="campaigndesc" placeholder="Enter a few tagline"></textarea>
+                    <textarea rows="4" id="campaigndesc" name="description" placeholder="Enter a few tagline"></textarea>
                 </div>
                 <div class="field">
                     <label for="uploadfile">Project Image *</label>
@@ -93,10 +93,10 @@
                     <span class="label-desc">Choose the location where you are running the project.</span>
                     <div class="field">
                         <div class="field-select">
-                            <select name="s">
-                                <option value="">United States</option>
-                                <option value="">France</option>
-                                <option value="">Germany</option>
+                            <select name="country">
+                                <option value="United States">United States</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
                             </select>
                         </div>
                     </div>
@@ -105,11 +105,11 @@
                     <label for="ccat">Project Category *</label>
                     <span class="label-desc">To help backers find your project, select a category that best represents your project.</span>
                     <div class="field-select">
-                        <select name="s" id="ccat">
+                        <select name="category" id="ccat">
                             <option value="">Select a Category</option>
-                            <option value="">Crafts</option>
-                            <option value="">Book</option>
-                            <option value="">Perfomances</option>
+                            <option value="Crafts">Crafts</option>
+                            <option value="Book">Book</option>
+                            <option value="Perfomances">Perfomances</option>
                         </select>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                 <div class="field">
                     <label for="cduration">Project Duration *</label>
                     <span class="label-desc">You can run a campaign for any number of days, with a 60 day duration maximum.</span>
-                    <input type="text" id="cduration" value="" name="title" placeholder="60 days"/>
+                    <input type="text" id="cduration" value="" name="duration" placeholder="60 days"/>
                 </div>
                 <button type="submit" value="Save & Launch" class="btn-primary">Save &amp; Launch</button>
             </form>
