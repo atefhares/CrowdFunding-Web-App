@@ -15,9 +15,9 @@ import os
 # these three lines swap the stdlib sqlite3 lib with the pysqlite3 package
 import sys
 
-# __import__('pysqlite3')
+__import__('pysqlite3')
 
-# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -36,16 +36,19 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'homepage',
-    'login_registration',
     'user_profile',
     'projects',
+    'admins',
+    'django_cleanup',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 ]
 
 MIDDLEWARE = [
@@ -128,5 +131,20 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(STATIC_ROOT, 'crowdfunding_web_app/'),
 ]
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
+
+# https://myaccount.google.com/security
+# Email Config
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'crowdfundingwebapp@gmail.com'
+EMAIL_HOST_PASSWORD = 'ITIintake40'
+EMAIL_USE_TLS = True

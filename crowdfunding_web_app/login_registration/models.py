@@ -16,7 +16,7 @@ class User(models.Model):
     email = models.EmailField(max_length=45)
     password = models.CharField(max_length=45)
     phone_number = models.CharField(max_length=45)
-    profile_pic = models.CharField(max_length=45)
+    profile_pic = models.ImageField()
     is_activated = models.BooleanField(default=False)
     birth_date = models.DateField(null=True, blank=True)
     country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True, blank=True)

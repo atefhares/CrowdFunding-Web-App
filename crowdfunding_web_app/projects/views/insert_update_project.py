@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from projects.models import Project, Category
-from login_registration.models import Country
+from accounts.models import Country
 
 
 def handle_update_project_request(request):

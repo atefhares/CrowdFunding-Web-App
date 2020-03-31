@@ -1,0 +1,6 @@
+Hello {{ username }},
+Please activate your acccount for {{ email }} by clicking the link below:
+{{ path }} 
+Once you activate you can login!
+Thank you,
+CrowdFunding
