@@ -3,11 +3,12 @@ from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect
 import re
 from projects.models import Project, Category, ProjectPicture
-from accounts.models import Country
+from django.http import HttpResponseNotFound
 from django_countries import countries
 from django.contrib import messages
 import datetime
 from datetime import timedelta
+from django.conf import settings
 
 
 def handle_update_project_request(request):
@@ -41,9 +42,10 @@ def get_create_project_render_data():
 
 
 def handle_create_new_project_request(request):
-    print(request)
-    print(request.POST)
-    print(request.FILES)
+    if settings.DEBUG:
+        print(request)
+        print(request.POST)
+        print(request.FILES)
 
     if request.user.is_anonymous:
         return redirect('login')
@@ -83,7 +85,7 @@ def handle_create_new_project_request(request):
             return render(request, "projects/create_project.html", get_create_project_render_data())
         else:
             new_project = Project()
-            user=User.objects.get(id=request.user.id)
+            user = User.objects.get(id=request.user.id)
             new_project.owner = user
             new_project.title = title
             new_project.description = description
@@ -107,3 +109,5 @@ def handle_create_new_project_request(request):
                 project_pic.save()
 
             return redirect('list_projects')
+    else:
+        return HttpResponseNotFound("404")
