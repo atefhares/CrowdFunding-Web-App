@@ -26,6 +26,10 @@ def is_valid_duration(duration):
     return re.search("^[0-9]+$", duration) and int(duration) <= 365
 
 
+def is_valid_target(duration):
+    return re.search("^[0-9]+$", duration)
+
+
 def get_create_project_render_data():
     all_categories = Category.objects.all()
     # all_countries = Country.objects.all()
@@ -52,6 +56,7 @@ def handle_create_new_project_request(request):
         country = request.POST.get("country")
         category = request.POST.get("category")
         duration = request.POST.get("duration")
+        target = request.POST.get("target")
 
         error_detected = False
         if not is_valid_title(title):
@@ -64,6 +69,10 @@ def handle_create_new_project_request(request):
 
         if not is_valid_duration(duration):
             messages.error(request, 'Invalid Duration [No text, max_value: 365]')
+            error_detected = True
+
+        if not is_valid_target(target):
+            messages.error(request, 'Invalid Target [No text]')
             error_detected = True
 
         if not request.FILES['ImageUpload']:
@@ -79,6 +88,7 @@ def handle_create_new_project_request(request):
             new_project.description = description
             new_project.category = Category.objects.get(id=int(category))
             new_project.country = country
+            new_project.total_target = country
             new_project.start_date = datetime.date.today()
             new_project.end_date = datetime.date.today() + timedelta(days=int(duration))
             new_project.save()
