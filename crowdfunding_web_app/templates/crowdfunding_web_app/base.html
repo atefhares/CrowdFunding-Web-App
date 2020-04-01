@@ -103,7 +103,21 @@
                 </div>
 
                 <div class="login login-button">
-                    <a href="{% url 'login' %}" class="btn-primary">Login</a>
+                    {% if user.is_signedin %}
+
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user"></i> Profile </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-info"
+                                 aria-labelledby="navbarDropdownMenuLink-4">
+                                <a class="dropdown-item" href="#">My account</a>
+                                <a class="dropdown-item" href="#">Log out</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn-primary">Login</a>
+                    {% endif %}
                 </div><!-- .login -->
             </div><!--. right-header -->
         </div><!-- .container -->
