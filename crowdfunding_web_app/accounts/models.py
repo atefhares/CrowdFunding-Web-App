@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 from django_countries.fields import CountryField
 from django.utils import timezone
@@ -5,6 +7,8 @@ from django.contrib.auth.models import User
 # Create your models here.
 from datetime import timedelta
 import datetime
+
+from crowdfunding_web_app.settings import MEDIA_URL
 
 
 class Country(models.Model):
@@ -22,8 +26,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True)
     phone_number = models.CharField(max_length=45, default=None, null=True)
-    profile_pic = models.ImageField(default='profile_pic/jo.jpg',upload_to='profile_pic')
-
+    profile_pic = models.ImageField(default=os.path.join(MEDIA_URL, 'profile_pic', 'jo.jpg')
+                                    , upload_to='profile_pic')
     birth_date = models.DateField(null=True, default=None)
     country = CountryField(null=True, blank=True)
     facebook_profile_id = models.CharField(
