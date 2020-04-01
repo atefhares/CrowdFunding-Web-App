@@ -15,11 +15,11 @@ def handle_update_project_request(request):
 
 
 def is_valid_description(desc):
-    return 20 <= len(desc) <= 200 and re.search("^[a-zA-Z]+$", desc)
+    return 20 <= len(desc) <= 200
 
 
 def is_valid_title(title):
-    return 5 <= len(title) <= 50 and re.search("^[a-zA-Z]+$", title)
+    return 5 <= len(title) <= 50 and re.search("^[a-zA-Z ]+$", title)
 
 
 def is_valid_duration(duration):
@@ -50,7 +50,7 @@ def handle_create_new_project_request(request):
 
     if request.method == "GET":
         return render(request, "projects/create_project.html", get_create_project_render_data())
-    else:
+    elif request.method == "POST":
         title = request.POST.get("title")
         description = request.POST.get("description")
         country = request.POST.get("country")
@@ -60,7 +60,7 @@ def handle_create_new_project_request(request):
 
         error_detected = False
         if not is_valid_title(title):
-            messages.error(request, 'Invalid Title [min_length: 5, max_length: 20, no digits]')
+            messages.error(request, 'Invalid Title [min_length: 5, max_length: 50, no digits]')
             error_detected = True
 
         if not is_valid_description(description):
@@ -83,12 +83,13 @@ def handle_create_new_project_request(request):
             return render(request, "projects/create_project.html", get_create_project_render_data())
         else:
             new_project = Project()
-            new_project.owner = User.objects.get(request.user.id)
+            user=User.objects.get(id=request.user.id)
+            new_project.owner = user
             new_project.title = title
             new_project.description = description
             new_project.category = Category.objects.get(id=int(category))
             new_project.country = country
-            new_project.total_target = country
+            new_project.total_target = target
             new_project.start_date = datetime.date.today()
             new_project.end_date = datetime.date.today() + timedelta(days=int(duration))
             new_project.save()
@@ -105,4 +106,4 @@ def handle_create_new_project_request(request):
                 project_pic.pic_path = uploaded_file_url
                 project_pic.save()
 
-            redirect('list_projects')
+            return redirect('list_projects')
