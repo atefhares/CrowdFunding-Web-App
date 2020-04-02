@@ -40,7 +40,9 @@
                                             <div class="process-funded">
                                                 <span>{{ project.project_funded }}</span>funded
                                             </div>
-                                            <div class="process-time"><span>2</span>days ago</div>
+                                            <div class="process-time">
+                                                <span>{{ project.project_time_1 }}</span>{{ project.project_time_2 }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -51,7 +53,7 @@
 
                 </div>
             </div>
-            <div class="latest-button"><a href="#" class="btn-primary">Load more</a></div>
+            {#            <div class="latest-button"><a href="#" class="btn-primary">Load more</a></div>#}
         </div>
     </div><!-- .latest -->
     <br><br><br><br>

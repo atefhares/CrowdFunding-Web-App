@@ -8,8 +8,7 @@ from admins.models import Admin, FeaturedProject
 
 def index(request):
     staff_picks = get_staff_picks()
-    user = {'is_signedin': request.user.is_authenticated}
-    context = {'staff_picks': staff_picks, 'user': user}
+    context = {'staff_picks': staff_picks}
 
     return render(request, 'homepage/index.html', context=context)
 
