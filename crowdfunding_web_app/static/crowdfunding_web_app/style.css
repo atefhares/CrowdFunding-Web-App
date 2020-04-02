@@ -98,7 +98,7 @@ h6 {
 }
 img{
     border:none;
-    max-width:100%; 
+    max-width:100%;
     height: auto;
     width: 100%;
 }
@@ -118,8 +118,8 @@ a:focus{
     box-shadow: initial;
     border: 0;
 }
-a, 
-button, 
+a,
+button,
 input {
     transition: all 0.3s ease-in-out 0s;
     -moz-transition: all 0.3s ease-in-out 0s;
@@ -152,11 +152,11 @@ textarea:focus {
     outline: none;
     outline-offset: 0;
 }
-.table > tbody > tr > td, 
-.table > tbody > tr > th, 
-.table > tfoot > tr > td, 
-.table > tfoot > tr > th, 
-.table > thead > tr > td, 
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
 .table > thead > tr > th {
     border-color: #FCD998;
 }
@@ -756,7 +756,7 @@ ul.socials-top li:hover i{
     padding: 12px 15px;
 }
 .main-menu ul li a{
-    color: #20222b; 
+    color: #20222b;
 }
 .main-menu ul li:hover > a{
     color: #00a6eb;
@@ -903,7 +903,7 @@ ul.socials-top li:hover i{
 }
 .process .process-info div{
     color: #fff;
-    display: inline-block; 
+    display: inline-block;
     width: auto;
     letter-spacing: normal;
 }
@@ -1699,7 +1699,7 @@ ul.menu-category li.active:after{
   display: block;
 }
 .widget-popular li{
-  margin-bottom: 25px;  
+  margin-bottom: 25px;
 }
 .widget-popular li img{
   width: auto;
@@ -2748,7 +2748,7 @@ form .create-account input[type="checkbox"]{
 .form-header .form-text h2{
   clear: none;
   color: #222;
-  
+
 }
 .form-header .form-text{
   padding-left: 180px;
@@ -3948,7 +3948,7 @@ form .create-account input[type="checkbox"]{
 .footer-menu .footer-menu-item li:hover{
     opacity: 1;
 }
-.footer-menu .footer-menu-item li:hover a{
+.footer-menu .footer-menu-item li:hover a {
     color: #fff !important;
 }
 .footer-menu .footer-menu-item li:last-child{
@@ -4157,10 +4157,10 @@ form .create-account input[type="checkbox"]{
     font-weight: normal
 }
 .process-model.contact-us-tab li::after  {
-    display: none; 
+    display: none;
 }
 .process-model.contact-us-tab li.visited span {
-    border-color: #e5e5e5; 
+    border-color: #e5e5e5;
 }
 .start-form .field{
     margin-bottom: 20px;
