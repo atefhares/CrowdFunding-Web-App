@@ -3,6 +3,7 @@ import datetime
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
+from django.http import HttpResponse, HttpResponseNotFound
 from .models import UserProfile
 import re
 from django.core.mail import send_mail
@@ -104,7 +105,7 @@ def register(request):
                 user.active = False
                 profile.time_stamp = datetime.datetime.now()
                 profile.expires = profile.time_stamp + datetime.timedelta(hours=24)
-
+                # profile.expires = datetime.datetime.now()
                 profile.user = user
 
                 if send_activation(user, profile):
@@ -158,29 +159,48 @@ def send_activation(user, profile):  # responsoble for sending the mail
     return is_sent
 
 
+def is_expired(expiration_date):   #returns true if the user is expired
+    utc = pytz.UTC
+    now_date = datetime.datetime.now().replace(tzinfo=utc)
+    expiration_date = expiration_date.replace(tzinfo=utc)
+    if now_date >= expiration_date:
+        return True
+    else:
+        return False
+
+
 def activate(request, key):
     try:
         user_profile = UserProfile.objects.get(key=key)
     except(UserProfile.DoesNotExist, OverflowError, ValueError, TypeError):
         user_profile = None
-        return render(request, 'accounts/verify.html')
-    utc = pytz.UTC
-    now = datetime.datetime.now().replace(tzinfo=utc)
-    expires = user_profile.expires.replace(tzinfo=utc)
-
-    if user_profile is not None and now <= expires:
+        return HttpResponseNotFound('<h1>Error:404<br>Page not found</h1>')
+        # return render(request, 'accounts/verify.html')
+    expires = user_profile.expires
+    if user_profile is not None and is_expired(expires) == False:
         if not user_profile.once_activation:
             user_profile.once_activation = True
             user_profile.is_active = True
             user_profile.save()
             messages.success(request, "Your mail is successfully activated.")
-            return render(request, 'accounts/login.html')
+            return render(request, "accounts/login.html")
+
         elif user_profile.once_activation == True and user_profile.is_active == True:
             messages.info(request, "Your email is already activated")
             return render(request, 'accounts/login.html')
     else:
-        return render(request, 'accounts/verify.html')
-
+        return HttpResponseNotFound('<h1>Error<br>Page not found</h1>')
+        # return render(request, 'accounts/verify.html')
+    
+def resend_activation_email(request,email):
+    expired_user_profile = UserProfile.objects.get(user__email= email)
+    expired_user = User.objects.get(email= email)
+    send_activation(expired_user,expired_user_profile)
+    messages.success(request, "<strong>Success:</strong>Verification email is successfully sent, <br>Once you verfiy your email you can login!",extra_tags='contains_html')
+    expired_user_profile.time_stamp = datetime.datetime.now()
+    expired_user_profile.expires = expired_user_profile.time_stamp + datetime.timedelta(hours=24)
+    expired_user_profile.save()
+    return render(request, 'accounts/login.html')
 
 def login(request):
     if request.method == 'POST':
@@ -200,12 +220,23 @@ def login(request):
             user_profie = UserProfile.objects.get(user__email=email)
         except(UserProfile.DoesNotExist, OverflowError, ValueError, TypeError):
             messages.error(request, "Invalid Credentials")
+            user = None
             return render(request, 'accounts/login.html')
         if user is not None and user_profie.is_active == True:
             auth.login(request, user)
             return redirect('/')
         elif user is not None and user_profie.is_active == False:
-            messages.error(request, "This email is not activated yet, If you activation email is expired ClickHere")
+            expired_user_profile = UserProfile.objects.get(user__email=email)
+            is_user_expired = is_expired(expired_user_profile.expires)
+            if  is_user_expired == False:
+                messages.error(request,"Sorry, This email is not activated yet!")
+                messages.info(request,"<strong>Info:</strong> Please, Check your email inbox and activate your account.",extra_tags='contains_html')
+            else:
+                email = user.email
+                messages.error(request, "This email is not activated yet,<br> If your activation email is expired,"+
+                                        'Please <a id="resend_email" href="http://localhost:8000/accounts/resend_activation_email/{}">ClickHere</a>'.format(email),
+                                        extra_tags='contains_html'
+                )
             return render(request, 'accounts/login.html')
         else:
             messages.error(request, "Invalid Credentials")
