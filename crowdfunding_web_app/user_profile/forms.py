@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from accounts.models import UserProfile
+from django.forms import ModelForm
 
 class UserUpdateForm (forms.ModelForm):
     email = forms.EmailField()
@@ -16,3 +17,13 @@ class ProfileUpdateForm (forms.ModelForm):
     class Meta:
         model = UserProfile
         fields =['phone_number','birth_date','facebook_profile_id','country','profile_pic']
+
+class UserDeleteForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = []
+
+class ProfileDeleteForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = []

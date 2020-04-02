@@ -1,10 +1,48 @@
 {% extends 'crowdfunding_web_app/base.html' %}
-{% load crispy_forms_tags %}
 {% block body %}
 
+	<main id="main" class="site-main">
+			<div class="page-title background-page">
+				<div class="container">
+					<h1>Profile</h1>
+					<div class="breadcrumbs">
+					</div><!-- .breadcrumbs -->
+				</div>
+			</div>
+
+
+
+
+<div id="wrapper">
+		<header id="header" class="site-header">
+			<div class="container">
+				<div class="site-brand">
+					<a href="index.html"><img src="profile_pic/campaign-big-item.jpg" alt=""></a>
+				</div><!-- .site-brand -->
+				<div class="right-header">
+					<nav class="main-menu">
+						<button class="c-hamburger c-hamburger--htx"><span></span></button>
+
+
+					</nav>
+                </div>
+
+                <div class="account-wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3">
+							<nav class="account-bar">
+								<ul>
+									<li class="active"><p> Dashboard </p></li>
+                                    <li><a href = "/profile/edit" >Edit Profile</a></li>
+									<li ><a href = "/profile/delete" >Delete Profile</a></li>
+
+								</ul>
+							</nav>
+						</div>
 <div class="col-lg-9">
     <div class="account-content profile">
-        <h3 class="account-title">My Profiles</h3>
+        <h3 class="account-title">My Profile</h3>
         <div class="account-main">
             <div class="author clearfix">
                 <a class="author-avatar" href="#"><img src="{{user.userprofile.profile_pic.url}}" alt=""></a>
@@ -44,21 +82,13 @@
                         <strong>Country:</strong>
                         <div class="profile-text"><p>{{user.userprofile.country}}</p></div>
                     </li>
-				</ul>
-                <div>
-                      <form method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          <fieldset class="form-group">
-              <legend class="border-bottom mb-4">Profile Info</legend>
-              {{u_form|crispy}}
-              {{p_form|crispy}}
-          </fieldset>
-          <div class="form-group">
-              <button class="btn btn-outline-info" type="submit">Update</button>
-          </div>
-      </form>
 
-                </div>
+
+
+
+
+				</ul>
+
             </div>
 
 
