@@ -45,4 +45,5 @@ urlpatterns = [
                   path('accounts/', include('accounts.urls')),
                   path('profile/', include(profile_urls)),
                   path('projects/', include(project_urls)),
+                  path('logout', common_views.logout_view, name='logout')
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
