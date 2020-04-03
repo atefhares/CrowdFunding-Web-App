@@ -94,7 +94,7 @@ def register(request):
                         key = random_string_generator(size=45), 
                         )
                 user = User.objects.create_user(
-                    username=email,
+                    username=first_name,
                     first_name=first_name,
                     email=email,
                     password=password,
