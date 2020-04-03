@@ -16,6 +16,7 @@ def edit_profile(request):
     print (request.user.email)
     if request.method =='POST':
         user_form=UserUpdateForm(request.POST,instance=request.user)
+        user_form.fields['email'].disabled = True
         profile_form=ProfileUpdateForm(request.POST,
                                  request.FILES,
                                  instance=request.user.userprofile)
@@ -28,6 +29,7 @@ def edit_profile(request):
 
     else:
         user_form = UserUpdateForm(instance=request.user)
+        user_form.fields['email'].disabled = True
         profile_form = ProfileUpdateForm(instance=request.user.userprofile)
     context ={
         'u_form':user_form,
