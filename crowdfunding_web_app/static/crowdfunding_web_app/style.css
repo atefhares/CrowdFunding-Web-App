@@ -1439,7 +1439,7 @@ ul.menu-category li.active:after{
   background-image: url('images/blog-list.jpg');
 }
 .page-title.background-campaign{
-  background-image: url('images/campaign.jpg');
+  /*background-image: url('images/campaign.jpg');*/
 }
 .page-title.background-cart{
   background-image: url('images/cart.jpg');

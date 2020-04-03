@@ -21,10 +21,14 @@ def handle_list_all_projects_request(request):
         for project in all_projects:
             days = (datetime.date.today() - project.start_date).days
             project_time_1 = days
-            project_time_2 = "days ago"
+
             if days == 0:
                 project_time_1 = "today"
                 project_time_2 = ""
+            elif days == 1:
+                project_time_2 = "day ago"
+            else:
+                project_time_2 = "days ago"
 
             projects_data_list.append(
                 {
@@ -33,10 +37,10 @@ def handle_list_all_projects_request(request):
                     "project_desc": project.description,
                     "project_category": project.category.name,
                     "project_owner": project.owner.first_name,
-                    "project_owner_img": project.owner.userprofile.profile_pic,
-                    "project_pic": project.projectpicture_set.all()[:1].get().pic_path,
+                    "project_owner_img": project.owner.user_profile.profile_pic,
+                    "project_pic": project.pictures.first().pic_path,
                     "project_pledged": project.total_target,
-                    "project_funded": project.donation_set.aggregate(Sum('amount')).get('amount__sum'),
+                    "project_funded": project.donations.aggregate(Sum('amount')).get('amount__sum'),
                     "project_time_1": project_time_1,
                     "project_time_2": project_time_2,
                     "project_start_date": project.start_date,

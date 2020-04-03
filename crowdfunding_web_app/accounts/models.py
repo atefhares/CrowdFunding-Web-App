@@ -24,7 +24,7 @@ def one_day_hence():
 
 class UserProfile(models.Model):
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, primary_key=True)
+        User, on_delete=models.CASCADE, primary_key=True, related_name="user_profile")
     phone_number = models.CharField(max_length=45, default=None, null=True)
     profile_pic = models.ImageField(default=os.path.join(MEDIA_URL, 'profile_pic', 'jo.jpg')
                                     , upload_to='profile_pic')
@@ -40,4 +40,4 @@ class UserProfile(models.Model):
     once_activation = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.user.first_name} UserProfile'
+        return f'{self.user.email} UserProfile'
