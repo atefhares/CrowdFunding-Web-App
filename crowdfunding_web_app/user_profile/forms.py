@@ -5,7 +5,9 @@ from accounts.models import UserProfile
 from django.forms import ModelForm
 
 class UserUpdateForm (forms.ModelForm):
-    email = forms.EmailField()
+    def __int__(self, *args, disabled_email=True, **kwargs):
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['email'].disabled = disabled_email
 
     class Meta:
         model = User
