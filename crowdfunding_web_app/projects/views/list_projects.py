@@ -21,10 +21,14 @@ def handle_list_all_projects_request(request):
         for project in all_projects:
             days = (datetime.date.today() - project.start_date).days
             project_time_1 = days
-            project_time_2 = "days ago"
+
             if days == 0:
                 project_time_1 = "today"
                 project_time_2 = ""
+            elif days == 1:
+                project_time_2 = "day ago"
+            else:
+                project_time_2 = "days ago"
 
             projects_data_list.append(
                 {
