@@ -33,7 +33,7 @@ def validate_password(password_field):
 
 def validate_email(email_field):
     EMAIL_REGEX = re.compile(r"[^@]+@[^@]+\.[^@]+")
-    if not EMAIL_REGEX.match(email_field):
+    if not EMAIL_REGEX.match(email_field):    #لو مش بيماتش هترجع ترووووووو
         return True
     else:
         return False
@@ -108,7 +108,7 @@ def register(request):
                 # profile.expires = datetime.datetime.now()
                 profile.user = user
 
-                if send_activation(user, profile):
+                if send_activation(user, profile,is_registered = False):
                     profile.save()
 
                 messages.success(request, '<strong>Success</strong><br>Registered, Successfully!',
@@ -134,7 +134,7 @@ def random_string_generator(size=10, chars=string.ascii_lowercase + string.digit
     return ''.join(random.choice(chars) for _ in range(size))
 
 
-def send_activation(user, profile):  # responsoble for sending the mail
+def send_activation(user, profile,is_registered):  # responsoble for sending the mail
     is_sent = False
 
     # send_email(subject,message,from_email,recipient_list,html_message)
@@ -148,13 +148,24 @@ def send_activation(user, profile):  # responsoble for sending the mail
     mail_subject = 'Verification Mail'
     mail_sender = 'crowdfundingwebapp@gmail.com'
     mail_reciever = [user.email]
-    send_email = send_mail(
-        mail_subject,
-        txt_,
-        mail_sender,
-        mail_reciever,
-        html_message=html_,
-    )
+    verify_forget_password_txt_ = get_template("accounts/verify_forget_password.txt").render(context)
+    verify_forget_password_html_ = get_template("accounts/verify_forget_password.html").render(context)
+    if is_registered == False:
+        send_email = send_mail(
+            mail_subject,
+            txt_,
+            mail_sender,
+            mail_reciever,
+            html_message=html_,
+        )
+    else:
+        send_email = send_mail(
+            mail_subject,
+            verify_forget_password_txt_,
+            mail_sender,
+            mail_reciever,
+            verify_forget_password_html_
+        )
     is_sent = True
     return is_sent
 
@@ -191,7 +202,57 @@ def activate(request, key):
     else:
         return HttpResponseNotFound('<h1>Error<br>Page not found</h1>')
         # return render(request, 'accounts/verify.html')
+
+def reset_password(request, key):
+    try:
+        user_profile = UserProfile.objects.get(key=key)
+    except(UserProfile.DoesNotExist, OverflowError, ValueError, TypeError):
+        user_profile = None
+        return HttpResponseNotFound('<h1>Error:404<br>Page not found</h1>')
     
+    if user_profile is not None and not is_expired(user_profile.expires) and user_profile.once_activation == False:
+        context = {
+            'key' : user_profile.key,
+            'email' : user_profile.user.email
+        }
+        user_profile.once_activation = True
+        user_profile.save()
+        return render(request,'accounts/reset_password.html',context)
+    else:
+        return HttpResponseNotFound('<h1>Error:404<br>Page not found</h1>')
+
+
+def submit_password_new_value(request,key):
+    try:
+        user_profile = UserProfile.objects.get(key=key)
+        user = user_profile.user 
+        print(user_profile.user.email)
+    except(UserProfile.DoesNotExist, OverflowError, ValueError, TypeError):
+        user_profile = None
+        return HttpResponseNotFound('<h1>Error:404<br>Page not found</h1>')
+    if request.method == 'POST':
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+        if validate_password(password):
+            messages.error("Password Must Be At Least 8 Characters.")
+        confirm_password = request.POST['confirm_password']
+        if password == confirm_password:
+            user.set_password(password)
+            user_profile.is_active = True
+            user_profile.once_activation = True
+            user.save()
+            user_profile.save()
+            messages.success(request,"<strong>Success: </strong>Password Updated Sucessfully!",extra_tags='contains_html')
+            return render(request, 'accounts/login.html')
+        else:
+            messages.error(request,"Passwords Don't Match")
+    else:
+        return redirect(request,'accounts/reset_password.html')
+
+
+
+
+
 def resend_activation_email(request,email):
     expired_user_profile = UserProfile.objects.get(user__email= email)
     expired_user = User.objects.get(email= email)
@@ -244,6 +305,43 @@ def login(request):
 
     else:
         return render(request, 'accounts/login.html')
+def text_message():
+    str =  "<strong>Info: </strong>If provided email is a registered email ID on CrowdFunding,<br> you will receive an email with instructions on how to reset your password. <br> In case you didn't receive this email, you need to create a new account."
+    return str
+def forget_password(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        email_after_validation = validate_email(email)
+
+        if not email_after_validation:
+            try:
+                user = User.objects.get(email = email)
+            except(User.DoesNotExist, OverflowError, ValueError, TypeError):
+                user = None
+                messages.info(request,text_message(),extra_tags= 'contains_html')
+                return render(request, 'accounts/forget_password.html')
+            profile = UserProfile.objects.get(user__email= email)
+            if user is not None:
+                send_activation(user,profile,True)
+
+                profile.time_stamp = datetime.datetime.now()
+                profile.expires = profile.time_stamp + datetime.timedelta(hours=24)
+                profile.is_active = False
+                profile.once_activation = False
+                profile.save()
+                messages.info(request,text_message(),extra_tags='contains_html')
+                return render(request, 'accounts/login.html')
+        
+        else:
+            messages.error(request, "Invalid Email Format:example@domain.com")
+            return render(request, 'accounts/forget_password.html')
+
+
+    else:
+        return render(request, 'accounts/forget_password.html')        
+
+
+
 
 # def logout(request):
 #     return redirect(request, 'acounts/index.html')
