@@ -4,11 +4,11 @@
 
     <div class="page-title background-campaign">
         <div class="container">
-            <h1>The Oreous Pillow</h1>
+            <h1>{{ project.title }}</h1>
             <div class="breadcrumbs">
                 <ul>
-                    <li><a href="/">Home</a><span>/</span></li>
-{#                    style.css line 1442 for the image#}
+                    <li><a href="/">Home</a><span>/</span>{{ project.title }}</li>
+                    {#                    style.css line 1442 for the image#}
                     <li></li>
                 </ul>
             </div><!-- .breadcrumbs -->
@@ -20,25 +20,24 @@
                 <div class="campaign-item clearfix">
                     <div class="campaign-image">
                         <div id="owl-campaign" class="campaign-slider">
-{#                            <div class="item"><img src="images/campaign-recent-01.jpg" alt=""></div>#}
-{#                            <div class="item"><img src="images/campaign-recent-02.jpg" alt=""></div>#}
-{#                            <div class="item"><img src="images/campaign-recent-03.jpg" alt=""></div>#}
+                            {#                            <div class="item"><img src="images/campaign-recent-01.jpg" alt=""></div>#}
+                            {#                            <div class="item"><img src="images/campaign-recent-02.jpg" alt=""></div>#}
+                            {#                            <div class="item"><img src="images/campaign-recent-03.jpg" alt=""></div>#}
                         </div>
                     </div>
                     <div class="campaign-box">
-                        <a href="#" class="category">Crafts</a>
-                        <h3>The Oreous Pillow</h3>
-                        <div class="campaign-description"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Etiam tempor, ipsum ut mattis commodo, eros justo feugiat ante, sed tristique erat urna et
-                            nibh. Donec nec rhoncus mi, non laoreet tortor. Proin ullamcorper ipsum interdum tellus
-                            scelerisque, a ultricies urna vehicula. Mauris faucibus metus quis commodo pharetra.</p>
+                        <a href="#" class="category">{{ project.category }}</a>
+                        <h3>{{ project.title }}</h3>
+                        <div class="campaign-description"><p>{{ project.description }}</p>
                         </div>
                         <div class="campaign-author clearfix">
                             <div class="author-profile">
                                 <a class="author-icon" href="#"><img src="images/author-01.png" alt=""></a>by <a
-                                    class="author-name" href="#">Andrew Noah</a>
+                                    class="author-name" href="#">{{ project.owner.get_full_name }}</a>
                             </div>
-                            <div class="author-address"><span class="ion-location"></span>Melbourne, Victoria, AU</div>
+                            <div class="author-address">
+                                <span class="ion-location"></span> {{ project.country.name }}
+                            </div>
                         </div>
                         <div class="process">
                             <div class="raised"><span></span></div>
@@ -91,26 +90,7 @@
                         </ul>
                         <div class="campaign-content">
                             <div id="campaign" class="tabs active">
-                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.Lorem ipsum dolor
-                                    sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                    laboris. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.Lorem
-                                    ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                    ullamco laboris.</p>
-                                <img src="images/campaign-tabs.jpg" alt="">
-                                <p>A wonderful serenity has taken possession of my entire soul, like these sweet
-                                    mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm
-                                    of existence in this spot, which was created for the bliss of souls like mine. I am
-                                    so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil
-                                    existence, that I neglect my talents. I should be incapable of drawing a single
-                                    stroke at the present moment.</p>
-                                <p>One morning, when Gregor Samsa woke from troubled dreams, he found himself
-                                    transformed in his bed into a horrible vermin. He lay on his armour-like back, and
-                                    if he lifted his head a little he could see his brown belly, slightly domed and
-                                    divided by arches into stiff sections. The bedding was hardly able to cover it and
-                                    seemed ready to slide off any moment. His many legs, pitifully thin compared with
-                                    the size of the rest of him, waved</p>
+                                <p>{{ project.description }}</p>
                             </div>
                             <div id="backer" class="tabs">
                                 <table>
