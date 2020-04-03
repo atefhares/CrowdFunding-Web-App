@@ -40,4 +40,4 @@ class UserProfile(models.Model):
     once_activation = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.user.email} UserProfile'
+        return f'{self.user.first_name} UserProfile'
