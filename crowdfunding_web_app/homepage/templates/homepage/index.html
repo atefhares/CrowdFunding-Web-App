@@ -2,92 +2,66 @@
 
 {% block body %}
     <div class="preloading">
-        <div class="preloader loading">
-            <span class="slice"></span>
-            <span class="slice"></span>
-            <span class="slice"></span>
-            <span class="slice"></span>
-            <span class="slice"></span>
-            <span class="slice"></span>
-        </div>
+        {#        <div class="preloader loading">#}
+        {#            <span class="slice"></span>#}
+        {#            <span class="slice"></span>#}
+        {#            <span class="slice"></span>#}
+        {#            <span class="slice"></span>#}
+        {#            <span class="slice"></span>#}
+        {#            <span class="slice"></span>#}
+        {#        </div>#}
     </div>
     <div class="staff-picks">
         <div class="container">
             <div class="border-title">
-                <h2 class="title left-title">Staff Picks</h2>
-                <div class="description left-description">Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
+                <h2 class="title left-title">Highest Rated Projects</h2>
+                <div class="description left-description">The highest rated projects that are currently active
                 </div>
             </div>
             <div class="staff-picks-content">
                 <div class="staff-picks-slider slider-controls-top owl-carousel">
                     {#                TODO#}
                     {% for staff_pick in staff_picks %}
-                    
+
                     {% endfor %}
-                    
-                    <div class="staff-picks-item clearfix">
-                        <a class="staff-picks-image" href="campaign_detail.html"><img src="images/campaign-big-item.jpg"
-                                                                                      alt=""></a>
-                        <div class="staff-picks-item-content staff-picks-box">
-                            <a href="#" class="category">Design &amp; Art</a>
-                            <h3><a href="campaign_detail.html">Creative Furniture Designs1</a></h3>
-                            <div class="staff-picks-description">He lay on his armour-like back, and if he lifted his
-                                head a little he could see his brown belly, slightly domed and divided by arches into
-                                stiff sections. The bedding was hardly able to cover it and seemed ready to slide off
-                                any moment.
-                            </div>
-                            <div class="staff-picks-author">
-                                <div class="author-profile">
-                                    <a class="author-avatar" href="#"><img src="images/staff-picks-author.png"
-                                                                           alt=""></a>by
-                                    <a class="author-name" href="#">Andrew Noah</a>
+                    {% for project in highest_rated_projects %}
+
+
+                        <div class="staff-picks-item clearfix">
+                            <a class="staff-picks-image" href="campaign_detail.html"><img
+                                    src="{{ project.pictures.first.pic_path }}"
+                                    alt=""></a>
+                            <div class="staff-picks-item-content staff-picks-box">
+                                <a href="#" class="category">{{ project.category }}</a>
+                                <h3><a href="{{ project.id }}">{{ project.title }}</a></h3>
+                                <div class="staff-picks-description">
+                                    {{ project.description }}
                                 </div>
-                                <div class="author-address"><span class="ion-location"></span>Melbourne, Victoria, AU
+                                <div class="staff-picks-author">
+                                    <div class="author-profile">
+                                        <a class="author-avatar" href="#"><img
+                                                src="{{ project.owner.user_profile.profile_pic }}"
+                                                alt=""></a>by
+                                        <a class="author-name" href="#">{{ project.owner.get_full_name }}</a>
+                                    </div>
+                                    <div class="author-address"><span class="ion-location"></span>
+                                        {{ project.country.name }}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="process">
-                                <div class="raised"><span></span></div>
-                                <div class="process-info">
-                                    <div class="process-pledged"><span>$10000</span>pledged</div>
-                                    <div class="process-funded"><span>81%</span>funded</div>
-                                    <div class="process-time"><span>37</span>backers</div>
-                                    <div class="process-time"><span>23</span>days ago</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="staff-picks-item clearfix">
-                        <a class="staff-picks-image" href="campaign_detail.html"><img src="images/campaign-big-item.jpg"
-                                                                                      alt=""></a>
-                        <div class="staff-picks-item-content staff-picks-box">
-                            <a href="#" class="category">Design &amp; Art</a>
-                            <h3><a href="campaign_detail.html">Creative Furniture Designs2</a></h3>
-                            <div class="staff-picks-description">He lay on his armour-like back, and if he lifted his
-                                head a little he could see his brown belly, slightly domed and divided by arches into
-                                stiff sections. The bedding was hardly able to cover it and seemed ready to slide off
-                                any moment.
-                            </div>
-                            <div class="staff-picks-author">
-                                <div class="author-profile">
-                                    <a class="author-avatar" href="#"><img src="images/staff-picks-author.png"
-                                                                           alt=""></a>by
-                                    <a class="author-name" href="#">Andrew Noah</a>
-                                </div>
-                                <div class="author-address"><span class="ion-location"></span>Melbourne, Victoria, AU
-                                </div>
-                            </div>
-                            <div class="process">
-                                <div class="raised"><span></span></div>
-                                <div class="process-info">
-                                    <div class="process-pledged"><span>$10000</span>pledged</div>
-                                    <div class="process-funded"><span>81%</span>funded</div>
-                                    <div class="process-time"><span>37</span>backers</div>
-                                    <div class="process-time"><span>23</span>days ago</div>
+                                <div class="process">
+                                    <div class="raised"><span></span></div>
+                                    <div class="process-info">
+                                        <div class="process-pledged">
+                                            <span>$45000</span>pledged
+                                        </div>
+                                        <div class="process-funded"><span>81%</span>funded</div>
+                                        <div class="process-time"><span>37</span>backers</div>
+                                        <div class="process-time"><span>23</span>days ago</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -272,7 +246,7 @@
             <div class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</div>
             <div class="campaign-content">
                 <div class="row">
-{#                    TODO#}
+                    {#                    TODO#}
                     <div class="col-lg-4 col-md-6">
                         <div class="campaign-item">
                             <a class="overlay" href="campaign_detail.html">

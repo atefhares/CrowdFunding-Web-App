@@ -15,6 +15,9 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "categories"
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=45)
@@ -24,7 +27,7 @@ class Tag(models.Model):
 
 
 class Project(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.PROTECT)
+    owner = models.ForeignKey(User, on_delete=models.PROTECT, related_name="projects")
     title = models.CharField(max_length=45)
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -43,7 +46,7 @@ def get_upload_path_project_picture(instance, filename):
 
 
 class ProjectPicture(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="pictures")
     pic_path = models.FileField(db_column="pic_path",
                                 upload_to=get_upload_path_project_picture)
 
@@ -52,7 +55,7 @@ class ProjectPicture(models.Model):
 
 
 class Donation(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="donations")
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     amount = models.DecimalField(max_digits=20, decimal_places=10)
 
@@ -61,9 +64,12 @@ class Donation(models.Model):
 
 
 class ProjectRating(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="project_rating")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="rated_project")
     rating = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.project.title}  |  {self.rating}"
 
 
 class Comment(models.Model):
