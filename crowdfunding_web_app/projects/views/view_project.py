@@ -10,8 +10,10 @@ def handle_view_project_request(request, project_id):
     if settings.DEBUG:
         print("request: ", request)
         print("project_id: ", project_id)
-
-    context = {'project': get_project(project_id)}
+    project = get_project(project_id)
+    comment_num = project.comments.all().count()
+    comments = project.comments.order_by('-created_at')
+    context = {'project': get_project(project_id),'comment_num': comment_num,'comments': comments}
     print(context)
     return render(request, "projects/project_details.html", context)
 
@@ -38,11 +40,14 @@ def submit_comment(request, project_id):
         comment_value = request.POST['comment']
         if comment_value == '':
             messages.error(request,"Comment Can't Be Empty!")
-            return render(request,'projects/project_details.html')
         else:
             if request.user.is_authenticated:
                 user = request.user
-                print(request.user)
-            return render(request,'projects/project_details.html')
-    else:
-        return render(request,'projects/project_details.html')
+                project = Project.objects.get(id = project_id)
+                comment = Comment(
+                    comment = comment_value,
+                    project = project,
+                    user = user,
+                )
+                comment.save()               
+    return redirect('show_project',project_id)

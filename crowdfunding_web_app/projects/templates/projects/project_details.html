@@ -177,22 +177,33 @@
                                 </ul>
                             </div>
                             <div id="comment" class="tabs comment-area">
-                                <h3 class="comments-title">1 Comment</h3>
+                                <h3 class="comments-title">Comments:  {{ comment_num }}</h3>
                                 <ol class="comments-list">
                                     <li class="comment clearfix">
                                         <div class="comment-body">
                                             <div class="comment-avatar"><img src="images/comment.jpg" alt=""></div>
                                             <div class="comment-info">
                                                 <header class="comment-meta"></header>
-                                                <cite class="comment-author">Jordan B. Goodale</cite>
+
+
+                                                {% for comment in comments %}   
+                                                <cite class="comment-author">{{ comment.user }} </cite>
                                                 <div class="comment-inline">
-                                                    <span class="comment-date">2 days ago</span>
-                                                    <a href="#" class="comment-reply">Reply</a>
+                                                    <div class="comment-content">   
+
+                                                    <span class="comment-date"><b>{{ comment.created_at}}</b></span>
+                                                    <p>{{ comment.comment }}</p>
+                                                   
                                                 </div>
-                                                <div class="comment-content"><p>Lorem ipsum dolor sit amet, consectetur
-                                                    adipiscing elit. Equidem e Cn. Sequitur disserendi ratio cognitioque
-                                                    naturae; Nunc vides, quid faciat. Duo Reges: constructio interrete.
-                                                    Memini vero, inquam; Quis Aristidem non mortuum diligit?</p></div>
+                                                {% endfor %}
+                                                
+                                                
+                                                
+                                                
+                                               
+                                                </div>
+                           
+                                            </div>
                                             </div>
                                         </div>
                                     </li>
@@ -202,7 +213,7 @@
                                    
                                     {% include 'crowdfunding_web_app/alerts.html' %}
                                     
-                                    <form action="{% url 'submit_comment' project.id  %}" id="commentForm" method="POST"> {% csrf_token %}
+                                    <form action="{% url 'submit_comment' project.id   %}" id="commentForm" method="POST"> {% csrf_token %}
                                         <div class="field-textarea">                
                                             <textarea rows="8" name="comment" placeholder="Your Comment" ></textarea>
                                         </div>
