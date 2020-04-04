@@ -19,12 +19,12 @@ class SearchResultsView(ListView):
     model = Project
     template_name = 'crowdfunding_web_app/search_results.html'
 
-    def get_queryset(self):  # new
-        projects = Project.objects.filter(
-                Q(title__icontains='second') |
-                Q(category__name__icontains='first')
-            ).distinct()
-        return projects
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Project.objects.filter(
+            Q(title__icontains=query) | Q(category__name__icontains=query)
+        ).distinct()
+        return object_list
 
         # queryset = []
         # queries = query.split(" ")
