@@ -24,5 +24,5 @@ def donate_project(request, project_id):
     donation.amount = requested_donation
     donation.user = request.user
     donation.save()
-    
+
     return redirect('view_project', project_id=project_id)
