@@ -10,6 +10,8 @@ def index(request):
                'highest_rated_projects': get_highest_rated_projects(),
                'latest_projects': get_latest_projects(),
                'categories': get_categories_alphabetical()}
+
+
     print(context)
     return render(request, 'homepage/index.html', context=context)
 

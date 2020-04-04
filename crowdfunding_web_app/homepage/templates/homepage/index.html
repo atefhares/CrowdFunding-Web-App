@@ -25,7 +25,7 @@
 
 
                         <div class="staff-picks-item clearfix">
-                            <a class="staff-picks-image col-6" href="campaign_detail.html"><img
+                            <a class="staff-picks-image col-md-6 col-12" href="campaign_detail.html"><img
                                     src="{{ project.pictures.first.pic_path }}"
                                     alt=""></a>
                             <div class="staff-picks-item-content staff-picks-box">
@@ -125,12 +125,11 @@
                                 <div class="campaign-box">
                                     <a href="#" class="category">{{ project.category }}</a>
                                     <h3><a href="{{ project.id }}">{{ project.title }}</a></h3>
-                                    <div class="campaign-description">A watch designed to be an heirloom to be passed
-                                        down
-                                        to the next generation.
+                                    <div class="campaign-description">
+                                        {{ project.description }}
                                     </div>
                                     <div class="campaign-author"><a class="author-icon" href="#"><img
-                                            src="images/author-01.png"
+                                            src="{{ project.owner.user_profile.profile_pic }}"
                                             alt=""></a>by <a class="author-name" href="#">{{ project.owner.get_full_name }}</a></div>
                                     <div class="process">
                                         <div class="raised"><span></span></div>

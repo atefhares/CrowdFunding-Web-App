@@ -27,7 +27,6 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.contrib import admin
 
-
 # urlpatterns = [
 #     # path('', include('homepage.urls')),
 #     path('admin/', admin.site.urls),
@@ -41,6 +40,7 @@ from django.contrib import admin
 
 urlpatterns = [
                   path('', include('homepage.urls')),
+                  path('search/', common_views.SearchResultsView.as_view(), name='search_results'),
                   path('admin/', admin.site.urls),
                   path('accounts/', include('accounts.urls')),
                   path('profile/', include(profile_urls)),
