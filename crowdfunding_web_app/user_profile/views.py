@@ -21,7 +21,7 @@ def edit_profile(request):
         user_form.fields['email'].disabled = True
         profile_form = ProfileUpdateForm(request.POST,
                                          request.FILES,
-                                         instance=request.user.userprofile)
+                                         instance=request.user.user_profile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -32,7 +32,7 @@ def edit_profile(request):
     else:
         user_form = UserUpdateForm(instance=request.user)
         user_form.fields['email'].disabled = True
-        profile_form = ProfileUpdateForm(instance=request.user.userprofile)
+        profile_form = ProfileUpdateForm(instance=request.user.user_profile)
     context = {
         'u_form': user_form,
         'p_form': profile_form
@@ -48,12 +48,12 @@ def deleteuser(request):
         # deleteform=UserDeleteForm(request.POST,instance=user)
         # deletepform=ProfileDeleteForm(request.POST,
         #                               request.FILES,
-        #                               instance=request.user.userprofile
+        #                               instance=request.user.user_profile
         #
         #                              )
     else:
 
-        request.user.userprofile.delete()
+        request.user.user_profile.delete()
         request.user.delete()
 
         messages.info(request, 'Your account has been deleted.')
@@ -82,7 +82,7 @@ def list_projects(request):
                     "project_desc": project.description,
                     "project_category": project.category.name,
                     "project_owner": project.owner.first_name,
-                    "project_owner_img": project.owner.userprofile.profile_pic,
+                    "project_owner_img": project.owner.user_profile.profile_pic,
                     "project_pic": project.projectpicture_set.all()[:1].get().pic_path,
                     "project_pledged": project.total_target,
                     "project_funded": project.donation_set.aggregate(Sum('amount')).get('amount__sum'),

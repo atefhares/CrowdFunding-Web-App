@@ -26,7 +26,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True, related_name="user_profile")
     phone_number = models.CharField(max_length=45, default=None, null=True)
-    profile_pic = models.ImageField(default=os.path.join(MEDIA_URL, 'profile_pic', 'jo.jpg')
+    profile_pic = models.ImageField(default=os.path.join('profile_pic', 'jo.jpg')
                                     , upload_to='profile_pic')
     birth_date = models.DateField(null=True, default=None)
     country = CountryField(null=True, blank=True)
