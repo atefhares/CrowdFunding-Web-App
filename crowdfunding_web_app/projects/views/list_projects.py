@@ -6,6 +6,15 @@ import math
 from projects.models import Project
 
 
+def get_project_target(target):
+    if 1000 <= target < 100000:
+        return str(math.ceil(target / 1000)) + " k"
+    elif 100000 <= target < 1000000:
+        return str(math.ceil(target / 100000)) + " kk"
+    else:
+        return str(math.ceil(target / 1000000)) + " m"
+
+
 def handle_list_all_projects_request(request):
     if settings.DEBUG:
         print("request: ", request)
@@ -44,7 +53,7 @@ def handle_list_all_projects_request(request):
                     "project_owner": project.owner.first_name,
                     "project_owner_img": project.owner.user_profile.profile_pic,
                     "project_pic": project.pictures.first().pic_path,
-                    "project_pledged": math.ceil(project.total_target),
+                    "project_pledged": get_project_target(math.ceil(project.total_target)),
                     "project_funded": donations,
                     "project_time_1": project_time_1,
                     "project_time_2": project_time_2,

@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect
 import re
-from projects.models import Project, Category, ProjectPicture
+from projects.models import Project, Category, ProjectPicture, Tag
 from django.http import HttpResponseNotFound
 from django_countries import countries
 from django.contrib import messages
@@ -30,9 +30,10 @@ def is_valid_target(duration):
 
 def get_create_project_render_data():
     all_categories = Category.objects.all()
-    # all_countries = Country.objects.all()
+    all_tags = Tag.objects.all()
     render_data = {
         "categories": all_categories,
+        "tags": all_tags,
         "countries": countries
     }
     return render_data
@@ -95,6 +96,13 @@ def handle_create_new_project_request(request):
 
             print(new_project)
 
+            tags = request.POST.getlist('tags')
+            for tag in tags:
+                obj = Tag()
+                obj.name = tag
+                obj.save()
+                new_project.tags.add(obj)
+
             images = request.FILES.getlist('ImageUpload')
             fs = FileSystemStorage()
             for file in images:
@@ -112,7 +120,6 @@ def handle_create_new_project_request(request):
 
 def get_update_project_render_data(project: Project):
     all_categories = Category.objects.all()
-    # all_countries = Country.objects.all()
     render_data = {
         "categories": all_categories,
         "countries": countries,
