@@ -35,7 +35,9 @@
                         <div class="campaign-author clearfix">
                             <div class="author-profile">
                                 <a class="author-icon" href="#"><img
-                                        src="{{ project_owner.user_profile.profile_pic.url }}" alt=""></a>by <a
+                                        src="http://
+                                                {{ request.get_host }}{{ project_owner.user_profile.profile_pic.url }}"
+                                        alt=""></a>by <a
                                     class="author-name" href="#">{{ project_owner.get_full_name }}</a>
                             </div>
                             {#                            <div class="author-address"><span class="ion-location"></span>Melbourne, Victoria, AU</div>#}
@@ -49,14 +51,19 @@
                                 <div class="process-time"><span>{{ project_time_1 }}</span>{{ project_time_2 }}</div>
                             </div>
                         </div>
-                        <div class="button">
-                            <form action="#" id="priceForm" class="campaign-price quantity">
-                                <input type="number" value="1" min="0" name="s" placeholder=""/>
-                                <button class="btn-primary" type="submit">Back this Campaign</button>
-                            </form>
-                            <a href="#" class="btn-secondary"><i class="fa fa-heart" aria-hidden="true"></i>Remind
-                                me</a>
-                        </div>
+                        {% if project_needs_donations %}
+                            <div class="button">
+                                <form action="{{ project_id }}/donate" method="post" id="priceForm"
+                                      class="campaign-price quantity">
+                                    {% csrf_token %}
+                                    <input type="number" value="1" min="0" MAX="{{ max_donations_remains }}"
+                                           name="donation" placeholder=""/>
+                                    <button class="btn-primary" type="submit">Donate this Project</button>
+                                </form>
+                                <a href="#" class="btn-secondary"><i class="fa fa-heart" aria-hidden="true"></i>Remind
+                                    me</a>
+                            </div>
+                        {% endif %}
                         <div class="share">
                             <p>Share this project</p>
                             <ul>

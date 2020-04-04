@@ -42,7 +42,8 @@ def handle_list_all_projects_request(request):
             if project.donations.all().count() == 0:
                 donations = 0
             else:
-                donations = project.donations.aggregate(Sum('amount')).get('amount__sum') / project.total_target * 100
+                donations = math.ceil(
+                    project.donations.aggregate(Sum('amount')).get('amount__sum') / project.total_target * 100)
 
             projects_data_list.append(
                 {
