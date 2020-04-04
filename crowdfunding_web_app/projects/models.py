@@ -73,8 +73,8 @@ class ProjectRating(models.Model):
 
 
 class Comment(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE,related_name="comments")
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name="comments")
     comment = models.CharField(max_length=600)
 
     def __str__(self):

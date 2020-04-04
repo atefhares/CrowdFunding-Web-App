@@ -199,20 +199,15 @@
                                 </ol>
                                 <div id="respond" class="comment-respond">
                                     <h3 id="reply-title" class="comment-reply-title">Leave A Comment?</h3>
-                                    <form action="#" id="commentForm">
-                                        <div class="field-textarea">
-                                            <textarea rows="8" placeholder="Your Comment"></textarea>
+                                   
+                                    {% include 'crowdfunding_web_app/alerts.html' %}
+                                    
+                                    <form action="{% url 'submit_comment' project.id  %}" id="commentForm" method="POST"> {% csrf_token %}
+                                        <div class="field-textarea">                
+                                            <textarea rows="8" name="comment" placeholder="Your Comment" ></textarea>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-4 field">
-                                                <input type="text" value="" name="s" placeholder="Your Name"/>
-                                            </div>
-                                            <div class="col-md-4 field">
-                                                <input type="text" value="" name="s" placeholder="Your Email"/>
-                                            </div>
-                                            <div class="col-md-4 field">
-                                                <input type="text" value="" name="s" placeholder="Website"/>
-                                            </div>
+                            
                                         </div>
                                         <button type="submit" value="Send Messager" class="btn-primary">Post Comment
                                         </button>
