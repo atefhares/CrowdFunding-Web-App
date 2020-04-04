@@ -9,4 +9,5 @@ urlpatterns = [
     path('<project_id>', view_project.handle_view_project_request,name="show_project"),
     # path('views/submit_comment',view_project.submit_comment, name="submit_comment"),
     path('submit_comment/<project_id>', view_project.submit_comment, name="submit_comment"),
+    path('report_comment/<comment_id>', view_project.report_comment, name="report_comment")
 ]

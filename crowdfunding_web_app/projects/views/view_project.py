@@ -51,3 +51,18 @@ def submit_comment(request, project_id):
                 )
                 comment.save()               
     return redirect('show_project',project_id)
+
+@login_required(login_url='/accounts/login/')
+def report_comment(request, comment_id):
+    print(comment_id)
+    comment = Comment.objects.get(id= comment_id)
+    print(comment)
+    project_id = comment.project.id
+    if comment.is_reported == False and comment.user.email == request.user.email:
+        comment.comment_reports += 1
+        comment.is_reported = True
+    else:
+        comment.comment_reports += 1
+        comment.save()
+    comment.save() 
+    return redirect('show_project', project_id)
