@@ -40,7 +40,7 @@
                         <div class="file-upload">
                             <div class="upload-bg">
                                 <div id="myfileupload">
-                                    <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);"/>
+                                    <input type="file" accept="image/jpeg, image/png, , image/jpg" id="uploadfile" name="ImageUpload" onchange="readURL(this);"/>
                                 </div>
                                 <div id="thumbbox">
                                     <img src="images/assets/logo.png" height="100" width="100" alt="Thumb image"
@@ -52,13 +52,12 @@
                                                                                 aria-hidden="true"></i> Upload Image</a>
                                     <p></p>
                                 </div>
-                                <label class="filename"></label>
                             </div>
                         </div>
                         <div class="file-upload">
                             <div class="upload-bg">
                                 <div id="myfileupload1">
-                                    <input type="file" id="uploadfile1" name="ImageUpload" onchange="readURL1(this);"/>
+                                    <input type="file" id="uploadfile1" accept="image/jpeg, image/png, , image/jpg" name="ImageUpload" onchange="readURL1(this);"/>
                                 </div>
                                 <div id="thumbbox1">
                                     <img src="images/assets/logo.png" height="100" width="100" alt="Thumb image"
@@ -71,13 +70,12 @@
                                         Image</a>
                                     <p></p>
                                 </div>
-                                <label class="filename1"></label>
                             </div>
                         </div>
                         <div class="file-upload">
                             <div class="upload-bg">
                                 <div id="myfileupload2">
-                                    <input type="file" id="uploadfile2" name="ImageUpload" onchange="readURL2(this);"/>
+                                    <input type="file" id="uploadfile2" accept="image/jpeg, image/png, , image/jpg" name="ImageUpload" onchange="readURL2(this);"/>
                                 </div>
                                 <div id="thumbbox2">
                                     <img src="images/assets/logo.png" height="100" width="100" alt="Thumb image"
@@ -90,7 +88,6 @@
                                         Image</a>
                                     <p></p>
                                 </div>
-                                <label class="filename2"></label>
                             </div>
                         </div>
                     </div>
@@ -104,10 +101,6 @@
                                 {% for country in countries %}
                                     <option value="{{ country.code }}">{{ country.name }}</option>
                                 {% endfor %}
-
-                                {#                                {% for country in countries %}#}
-                                {#                                    <option value="{{ country.id }}">{{ country.name }}</option>#}
-                                {#                                {% endfor %}#}
                             </select>
                         </div>
                     </div>
