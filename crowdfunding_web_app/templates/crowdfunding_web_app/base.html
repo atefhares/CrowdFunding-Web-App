@@ -93,11 +93,14 @@
                 <div class="search-icon">
                     <a href="#" class="ion-ios-search-strong"></a>
                     <div class="form-search"></div>
-                    <form action="#" method="POST" id="searchForm">
-                        <input type="text" value="" name="search" placeholder="Search..."/>
+                    <form action="{% url 'search_results' %}" method="GET" id="searchForm">
+                        <input type="text" id="search-input" value="" name="q" placeholder="Search..."/>
                         <button type="submit" value=""><span class="ion-ios-search-strong"></span></button>
                     </form>
                 </div>
+{#                <div class="search_results">#}
+{#                    {% include 'crowdfunding_web_app/search_results.html' %}#}
+{#                </div>#}
 
                 <div class="login login-button">
                     {% if user_data.is_authenticated %}
@@ -145,11 +148,11 @@
                     </div>
                     <div class="col-lg-3 col-sm-4 col-4">
                         <div class="footer-menu-item">
-                            <h3>Campaign</h3>
+                            <h3>Project</h3>
                             <ul>
-                                <li><a href="#">Start Your Campaign</a></li>
-                                <li><a href="#">Pricing Campaign</a></li>
-                                <li><a href="#">Campaign Support</a></li>
+                                <li><a href="#">Start Your Project</a></li>
+                                <li><a href="#">Pricing Project</a></li>
+                                <li><a href="#">Project Support</a></li>
                                 <li><a href="#">Trust &amp; Safety</a></li>
                                 <li><a href="#">Support</a></li>
                                 <li><a href="#">Terms of Use</a></li>
@@ -221,7 +224,7 @@
         </div><!-- .footer-menu -->
         <div class="footer-copyright">
             <div class="container">
-                <p class="copyright">2018 by ideapress. All Rights Reserved.</p>
+                <p class="copyright">2020 by CrowdFunding. All Rights Reserved.</p>
                 <a href="#" class="back-top">Back to top<span class="ion-android-arrow-up"></span></a>
             </div>
         </div>
@@ -252,6 +255,22 @@
             if (theEvent.preventDefault) theEvent.preventDefault();
         }
     }
+
+    {#$(document).on('submit', '#searchForm', function (e) {#}
+    {#    e.preventDefault();#}
+    {##}
+    {#    $.ajax({#}
+    {#        type: 'GET',#}
+    {#        url:'/search/',#}
+    {#        data:{#}
+    {#            q:$('#search-input').val(),#}
+    {#            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]')#}
+    {#        },#}
+    {#        success: function () {#}
+    {#            alert("SEARCH")#}
+    {#        },#}
+    {#    })#}
+    {#})#}
 </script>
 
 </body>
