@@ -31,6 +31,7 @@ def handle_view_project_request(request, project_id):
     except Exception:
         return redirect('404')
 
+
     if project.donations.all().count() == 0:
         donations = 0
     else:
@@ -64,7 +65,9 @@ def handle_view_project_request(request, project_id):
         "project_time_2": project_time_2,
         "project_needs_donations": project_needs_donations,
         "max_donations_remains": math.ceil(project.total_target) - donations,
-
     }
+
+    if project.donations.all().count() > 0:
+        render_data["donations_list"] = project.donations.all()
 
     return render(request, "projects/project_details.html", render_data)
