@@ -27,7 +27,6 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.contrib import admin
 
-
 # urlpatterns = [
 #     # path('', include('homepage.urls')),
 #     path('admin/', admin.site.urls),
@@ -45,5 +44,6 @@ urlpatterns = [
                   path('accounts/', include('accounts.urls')),
                   path('profile/', include(profile_urls)),
                   path('projects/', include(project_urls)),
-                  path('logout', common_views.logout_view, name='logout')
+                  path('logout', common_views.logout_view, name='logout'),
+                  path('404', common_views.not_found, name='404')
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
