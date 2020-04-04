@@ -18,6 +18,7 @@ def logout_view(request):
 class SearchResultsView(ListView):
     model = Project
     template_name = 'crowdfunding_web_app/search_results.html'
+    # template_name = 'projects/view_projects.html'
 
     def get_queryset(self):
         query = self.request.GET.get('q')
