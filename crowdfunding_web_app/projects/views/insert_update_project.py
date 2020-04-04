@@ -96,11 +96,9 @@ def handle_create_new_project_request(request):
 
             print(new_project)
 
-            tags = request.POST.getlist('tags')
-            for tag in tags:
-                obj = Tag()
-                obj.name = tag
-                obj.save()
+            tags_ids = request.POST.getlist('tags')
+            for tag_id in tags_ids:
+                obj = Tag.objects.get(id=tag_id)
                 new_project.tags.add(obj)
 
             images = request.FILES.getlist('ImageUpload')
