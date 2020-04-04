@@ -1,14 +1,12 @@
-from django.http import HttpRequest
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-from admins.models import Admin, FeaturedProject
+from admins.models import FeaturedProject
 from projects.models import Project, Category
 
 
 def index(request):
-    context = {'staff_picks': get_staff_picks(),
+    context = {'latest_featured_projects': get_latest_featured_projects(),
                'highest_rated_projects': get_highest_rated_projects(),
                'latest_projects': get_latest_projects(),
                'categories': get_categories_alphabetical()}
@@ -16,9 +14,9 @@ def index(request):
     return render(request, 'homepage/index.html', context=context)
 
 
-def get_staff_picks():
-    staff_picks = FeaturedProject.objects.order_by('date_featured').first()
-    return staff_picks
+def get_latest_featured_projects():
+    latest_featured_projects = FeaturedProject.objects.order_by('-date_featured')
+    return latest_featured_projects
 
 
 def get_highest_rated_projects():
