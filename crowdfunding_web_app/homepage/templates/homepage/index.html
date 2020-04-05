@@ -25,12 +25,12 @@
 
 
                         <div class="staff-picks-item clearfix">
-                            <a class="staff-picks-image col-md-6 col-12" href="campaign_detail.html"><img
+                            <a class="staff-picks-image col-md-6 col-12" href="{% url 'view_project' project.id %}"><img
                                     src="{{ project.pictures.first.pic_path }}"
                                     alt=""></a>
                             <div class="staff-picks-item-content staff-picks-box">
                                 <a href="#" class="category">{{ project.category }}</a>
-                                <h3><a href="{{ project.id }}">{{ project.title }}</a></h3>
+                                <h3><a href="{% url 'view_project' project.id %}">{{ project.title }}</a></h3>
                                 <div class="staff-picks-description">
                                     {{ project.description }}
                                 </div>
@@ -80,13 +80,13 @@
                     {% for fproject in latest_featured_projects %}
                         <div class="col-lg-4 col-md-6">
                             <div class="campaign-item">
-                                <a class="overlay" href="campaign_detail.html">
+                                <a class="overlay" href="{% url 'view_project' fproject.project.id %}">
                                     <img src="{{ fproject.project.pictures.first.pic_path }}" alt="">
                                     <span class="ion-ios-search-strong"></span>
                                 </a>
                                 <div class="campaign-box">
                                     <a href="#" class="category">{{ fproject.project.category }}</a>
-                                    <h3><a href="{{ fproject.project.id }}">{{ fproject.project.title }}</a></h3>
+                                    <h3><a href="{% url 'view_project' fproject.project.id %}">{{ fproject.project.title }}</a></h3>
                                     <div class="campaign-description">
                                         {{ fproject.project.description }}
                                     </div>
@@ -124,13 +124,13 @@
                     {% for project in latest_projects %}
                         <div class="col-lg-4 col-md-6">
                             <div class="campaign-item">
-                                <a class="overlay" href="campaign_detail.html">
+                                <a class="overlay" href="{% url 'view_project' project.id %}">
                                     <img src="{{ project.pictures.first.pic_path }}" alt="">
                                     <span class="ion-ios-search-strong"></span>
                                 </a>
                                 <div class="campaign-box">
                                     <a href="#" class="category">{{ project.category }}</a>
-                                    <h3><a href="{{ project.id }}">{{ project.title }}</a></h3>
+                                    <h3><a href="{% url 'view_project' project.id %}">{{ project.title }}</a></h3>
                                     <div class="campaign-description">
                                         {{ project.description }}
                                     </div>

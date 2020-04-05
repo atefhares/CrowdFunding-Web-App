@@ -29,7 +29,7 @@ def get_highest_rated_projects():
     # returns 5 projects based on rating by descending order
     highest_rated_projects = Project.objects.order_by('-project_rating')[:5].annotate(
         num_of_backers=Count('donations'),
-        amount_of_donations=sum('')
+        # amount_of_donations=sum('')
     )  # the '-' is for descending
     return highest_rated_projects
 
