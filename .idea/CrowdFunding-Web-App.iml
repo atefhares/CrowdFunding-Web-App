@@ -19,6 +19,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Python 3.8 (CrowdFunding-Web-App)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="bootstrap-select" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />

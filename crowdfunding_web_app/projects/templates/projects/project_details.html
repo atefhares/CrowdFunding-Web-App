@@ -1,15 +1,14 @@
 {% extends 'crowdfunding_web_app/base.html' %}
 
-{% block body %}
 
+{% block body %}
     <div class="page-title background-campaign">
         <div class="container">
-            <h1>The Oreous Pillow</h1>
+            <h1>{{ project_title }}</h1>
             <div class="breadcrumbs">
                 <ul>
                     <li><a href="/">Home</a><span>/</span></li>
-{#                    style.css line 1442 for the image#}
-                    <li></li>
+                    <li>{{ project_title }}</li>
                 </ul>
             </div><!-- .breadcrumbs -->
         </div>
@@ -20,43 +19,48 @@
                 <div class="campaign-item clearfix">
                     <div class="campaign-image">
                         <div id="owl-campaign" class="campaign-slider">
-{#                            <div class="item"><img src="images/campaign-recent-01.jpg" alt=""></div>#}
-{#                            <div class="item"><img src="images/campaign-recent-02.jpg" alt=""></div>#}
-{#                            <div class="item"><img src="images/campaign-recent-03.jpg" alt=""></div>#}
+                            {% for pic in project_images %}
+                                <div class="item"><img src="http://{{ request.get_host }}{{ pic.pic_path }}" alt="">
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="campaign-box">
-                        <a href="#" class="category">Crafts</a>
-                        <h3>The Oreous Pillow</h3>
-                        <div class="campaign-description"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Etiam tempor, ipsum ut mattis commodo, eros justo feugiat ante, sed tristique erat urna et
-                            nibh. Donec nec rhoncus mi, non laoreet tortor. Proin ullamcorper ipsum interdum tellus
-                            scelerisque, a ultricies urna vehicula. Mauris faucibus metus quis commodo pharetra.</p>
+                        <a href="#" class="category">{{ project_category }}</a>
+                        <h3>{{ project_title }}</h3>
+                        <div class="campaign-description"><p>
+                            {{ project_description }}
+                        </p>
                         </div>
                         <div class="campaign-author clearfix">
                             <div class="author-profile">
-                                <a class="author-icon" href="#"><img src="images/author-01.png" alt=""></a>by <a
-                                    class="author-name" href="#">Andrew Noah</a>
+                                <a class="author-icon" href="#"><img
+                                        src="http://{{ request.get_host }}{{ project_owner.user_profile.profile_pic.url }}"
+                                        alt=""></a>by <a
+                                    class="author-name" href="#">{{ project_owner.get_full_name }}</a>
                             </div>
-                            <div class="author-address"><span class="ion-location"></span>Melbourne, Victoria, AU</div>
+                            {#                            <div class="author-address"><span class="ion-location"></span>Melbourne, Victoria, AU</div>#}
                         </div>
                         <div class="process">
                             <div class="raised"><span></span></div>
                             <div class="process-info">
-                                <div class="process-funded"><span>$10000</span>funding goal</div>
-                                <div class="process-pledged"><span>$8100</span>pledged</div>
-                                <div class="process-time"><span>37</span>backers</div>
-                                <div class="process-time"><span>23</span>days ago</div>
+                                <div class="process-funded"><span>${{ project_funded }}</span>funding goal</div>
+                                <div class="process-pledged"><span>${{ project_pledged }}</span>pledged</div>
+                                <div class="process-time"><span>{{ project_donations_count }}</span>backers</div>
+                                <div class="process-time"><span>{{ project_time_1 }}</span>{{ project_time_2 }}</div>
                             </div>
                         </div>
-                        <div class="button">
-                            <form action="#" id="priceForm" class="campaign-price quantity">
-                                <input type="number" value="1" min="0" name="s" placeholder=""/>
-                                <button class="btn-primary" type="submit">Back this Campaign</button>
-                            </form>
-                            <a href="#" class="btn-secondary"><i class="fa fa-heart" aria-hidden="true"></i>Remind
-                                me</a>
-                        </div>
+                        {% if project_needs_donations %}
+                            <div class="button">
+                                <form action="{{ project_id }}/donate" method="post" id="priceForm"
+                                      class="campaign-price quantity">
+                                    {% csrf_token %}
+                                    <input type="number" value="1" min="0" MAX="{{ max_donations_remains }}"
+                                           name="donation" placeholder=""/>
+                                    <button class="btn-primary" type="submit">Donate this Project</button>
+                                </form>
+                            </div>
+                        {% endif %}
                         <div class="share">
                             <p>Share this project</p>
                             <ul>
@@ -80,13 +84,11 @@
     <div class="campaign-history">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-20">
                     <div class="campaign-tabs">
                         <ul class="tabs-controls">
-                            <li class="active" data-tab="campaign"><a href="#">Campaign Story</a></li>
+                            <li class="active" data-tab="campaign"><a href="#">Project Story</a></li>
                             <li data-tab="backer"><a href="#">Backer List</a></li>
-                            <li data-tab="faq"><a href="#">FAQ</a></li>
-                            <li data-tab="updates"><a href="#">Updates</a></li>
                             <li data-tab="comment"><a href="#">Comments</a></li>
                         </ul>
                         <div class="campaign-content">
@@ -98,7 +100,6 @@
                                     ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
                                     ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                                     ullamco laboris.</p>
-                                <img src="images/campaign-tabs.jpg" alt="">
                                 <p>A wonderful serenity has taken possession of my entire soul, like these sweet
                                     mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm
                                     of existence in this spot, which was created for the bliss of souls like mine. I am
@@ -117,38 +118,13 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Donate Amount</th>
-                                        <th>Date</th>
                                     </tr>
-                                    <tr>
-                                        <td>Andrew</td>
-                                        <td>$100</td>
-                                        <td>June 25, 2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Andrew</td>
-                                        <td>$60</td>
-                                        <td>December 25, 2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Andrew</td>
-                                        <td>$70</td>
-                                        <td>November 25, 2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Andrew</td>
-                                        <td>$90</td>
-                                        <td>February 25, 2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Andrew</td>
-                                        <td>$30</td>
-                                        <td>January 25, 2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Andrew</td>
-                                        <td>$80</td>
-                                        <td>June 15, 2017</td>
-                                    </tr>
+                                    {% for donation in donations_list %}
+                                        <tr>
+                                            <td>{{ donation.user.get_full_name }}</td>
+                                            <td>${{ donation.amount|floatformat }}</td>
+                                        </tr>
+                                    {% endfor %}
                                 </table>
                             </div>
                             <div id="faq" class="tabs">
@@ -242,35 +218,6 @@
                         </div>
                     </div>
                 </div><!-- .main-content -->
-                <div class="col-lg-4">
-                    <div class="support support-campaign">
-                        <h3 class="support-campaign-title">Back this Campaign</h3>
-                        <div class="plan">
-                            <a href="javascript:void(0)">
-                                <h4>Pledge $100 - $200</h4>
-                                <div class="plan-desc"><p>But I must explain to you how all this mistaken idea of
-                                    denouncing pleasure and praising pain was born and I will give you a complete
-                                    account of the system, and expound the actual teachings of the great explorer of the
-                                    truth, the master builder of human happiness.</p></div>
-                                <div class="plan-date">May, 2017</div>
-                                <div class="plan-author">Estimated Delivery</div>
-                                <div class="backer">2 backer</div>
-                            </a>
-                        </div>
-                        <div class="plan">
-                            <a href="javascript:void(0)">
-                                <h4>Pledge $200 - $300</h4>
-                                <div class="plan-desc"><p>No one rejects, dislikes, or avoids pleasure itself, because
-                                    it is pleasure, but because those who do not know how to pursue pleasure rationally
-                                    encounter consequences that are extremely painful. Nor again is there anyone who
-                                    loves or pursues or desires to obtain pain of itself</p></div>
-                                <div class="plan-date">May, 2017</div>
-                                <div class="plan-author">Estimated Delivery</div>
-                                <div class="backer">35 backer</div>
-                            </a>
-                        </div>
-                    </div>
-                </div><!-- .sidebar -->
             </div>
         </div>
     </div><!-- .campaign-history -->

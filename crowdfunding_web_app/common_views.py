@@ -15,9 +15,14 @@ def logout_view(request):
     return render(request, "homepage/index.html")
 
 
+def not_found(request):
+    return render(request, "crowdfunding_web_app/404/404.html")
+
+
 class SearchResultsView(ListView):
     model = Project
     template_name = 'crowdfunding_web_app/search_results.html'
+
     # template_name = 'projects/view_projects.html'
 
     def get_queryset(self):

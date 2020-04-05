@@ -1,0 +1,205 @@
+{% extends 'crowdfunding_web_app/base.html' %}
+{% load countries %}
+{% get_countries as countries %}
+
+{% block body %}
+    <div class="page-title background-campaign">
+        <div class="container">
+            <h1>Update project</h1>
+            <div class="breadcrumbs">
+                <ul>
+                    <li><a href="/">Home</a><span>/</span></li>
+                    <li>Update project</li>
+                </ul>
+            </div><!-- .breadcrumbs -->
+        </div>
+    </div><!-- .page-title -->
+    <div class="campaign-form form-update">
+        <div class="container">
+            <br/>
+            {% include 'crowdfunding_web_app/alerts.html' %}
+            <br/>
+            <form action="#" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h4>Start a project</h4>
+                <div class="field">
+                    <label for="title">Project Title *</label>
+                    <span class="label-desc">What is the title of your project?</span>
+                    <input type="text" value="{{ project_title }}" id="title" name="title"
+                           placeholder="The Oreous Pillow"/>
+                </div>
+                <div class="field">
+                    <label for="campaigndesc">Project Description *</label>
+                    <span class="label-desc">Provide a short description that best describes your project to your audience.</span>
+                    <textarea rows="4" id="campaigndesc" name="description"
+                              placeholder="Enter a few tagline">{{ project_description }}</textarea>
+                </div>
+                <div class="field">
+                    <label for="uploadfile">Project Image *</label>
+                    <span class="label-desc">Upload a square image that represents your project. 570 x 350 recommended resolution.</span>
+                    <div class="list-upload">
+                        <div class="file-upload">
+                            <div class="upload-bg">
+                                <div id="myfileupload">
+                                    <input type="file" accept="image/jpeg, image/png, , image/jpg"
+                                           id="uploadfile" name="ImageUpload" onchange="readURL(this);"/>
+                                </div>
+                                <div id="thumbbox">
+                                    <img src="http://127.0.0.1:8000{{ project_images.0.pic_path }}" height="100"
+                                         width="100" alt="Thumb image"
+                                         id="thumbimage" style="display: inline;"/>
+                                    <a class="removeimg" href="javascript:" style="display: block;"></a>
+                                </div>
+                                <div id="boxchoice">
+                                    <a href="javascript:" class="choicefile" style="display: none;"><i
+                                            class="fa fa-cloud-upload"
+                                            aria-hidden="true"></i> Upload Image</a>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                        {% if project_images.1.pic_path %}
+                            <div class="file-upload">
+                                <div class="upload-bg">
+                                    <div id="myfileupload1">
+                                        <input type="file" id="uploadfile1" accept="image/jpeg, image/png, , image/jpg"
+                                               name="ImageUpload" onchange="readURL1(this);"/>
+                                    </div>
+                                    <div id="thumbbox1">
+                                        <img src="http://127.0.0.1:8000{{ project_images.1.pic_path }}" height="100"
+                                             width="100" alt="Thumb image"
+                                             style="display: inline;" id="thumbimage1"/>
+                                        <a class="removeimg1" style="display: block;" href="javascript:"></a>
+                                    </div>
+                                    <div id="boxchoice1">
+                                        <a href="javascript:" style="display: none;" class="choicefile1"><i
+                                                class="fa fa-cloud-upload"
+                                                aria-hidden="true"></i> Upload
+                                            Image</a>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="file-upload">
+                                <div class="upload-bg">
+                                    <div id="myfileupload1">
+                                        <input type="file" id="uploadfile1" accept="image/jpeg, image/png, , image/jpg"
+                                               name="ImageUpload" onchange="readURL1(this);"/>
+                                    </div>
+                                    <div id="thumbbox1">
+                                        <img src="" height="100"
+                                             width="100" alt="Thumb image"
+                                             id="thumbimage1"/>
+                                        <a class="removeimg1" href="javascript:"></a>
+                                    </div>
+                                    <div id="boxchoice1">
+                                        <a href="javascript:" class="choicefile1"><i class="fa fa-cloud-upload"
+                                                                                     aria-hidden="true"></i> Upload
+                                            Image</a>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if project_images.2.pic_path != "" %}
+                            <div class="file-upload">
+                                <div class="upload-bg">
+                                    <div id="myfileupload2">
+                                        <input type="file" id="uploadfile2" accept="image/jpeg, image/png, , image/jpg"
+                                               name="ImageUpload" onchange="readURL2(this);"/>
+                                    </div>
+                                    <div id="thumbbox2">
+                                        <img src="http://127.0.0.1:8000{{ project_images.2.pic_path }}" height="100"
+                                             width="100" style="display: inline;" alt="Thumb image"
+                                             id="thumbimage2"/>
+                                        <a class="removeimg2" style="display: block;" href="javascript:"></a>
+                                    </div>
+                                    <div id="boxchoice2">
+                                        <a href="javascript:" style="display: none;" class="choicefile2"><i
+                                                class="fa fa-cloud-upload"
+                                                aria-hidden="true"></i> Upload
+                                            Image</a>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="file-upload">
+                                <div class="upload-bg">
+                                    <div id="myfileupload2">
+                                        <input type="file" id="uploadfile2" accept="image/jpeg, image/png, , image/jpg"
+                                               name="ImageUpload" onchange="readURL2(this);"/>
+                                    </div>
+                                    <div id="thumbbox2">
+                                        <img src="images/assets/logo.png" height="100" width="100" alt="Thumb image"
+                                             id="thumbimage2"/>
+                                        <a class="removeimg2" href="javascript:"></a>
+                                    </div>
+                                    <div id="boxchoice2">
+                                        <a href="javascript:" class="choicefile2"><i class="fa fa-cloud-upload"
+                                                                                     aria-hidden="true"></i> Upload
+                                            Image</a>
+                                        <p></p>
+                                    </div>
+                                    {#                                <label class="filename2"></label>#}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+                <div class="field clearfix">
+                    <label for="clocation">Project Location *</label>
+                    <span class="label-desc">Choose the location where you are running the project.</span>
+                    <div class="field">
+                        <div class="field-select">
+                            <select name="country">
+                                {% for country in countries %}
+                                    {% if country.code == project_country.code %}
+                                        <option value="{{ country.code }}"
+                                                selected="selected">{{ country.name }}</option>
+                                    {% else %}
+                                        <option value="{{ country.code }}">{{ country.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="ccat">Project Category *</label>
+                    <span class="label-desc">To help backers find your project, select a category that best represents your project.</span>
+                    <div class="field-select">
+                        <select name="category" id="ccat">
+                            {#                            <option value="">Select a Category</option>#}
+                            {% for category in categories %}
+                                {% if category.id == project_category.id %}
+                                    <option value="{{ category.id }}" selected="selected">{{ category.name }}</option>
+                                {% else %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="cduration">Project Duration *</label>
+                    <span class="label-desc">You can run a project for any number of days, with a 365 day duration maximum.</span>
+                    <input type="text" id="cduration" value="{{ project_duration }}" name="duration"
+                           placeholder="60 days"/>
+                </div>
+
+                <div class="field">
+                    <label for="cduration">Project Total target *</label>
+                    <span class="label-desc">You can put any target for a project</span>
+                    <input type="text" value="{{ project_target }}" name="target" placeholder="100000 dollars"/>
+                </div>
+                <button type="submit" value="Save & Launch" class="btn-primary">Save &amp; Launch</button>
+            </form>
+        </div>
+    </div><!-- .campaign-form -->
+    <br><br><br><br>
+{% endblock %}
