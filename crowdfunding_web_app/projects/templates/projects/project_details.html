@@ -1,7 +1,7 @@
 {% extends 'crowdfunding_web_app/base.html' %}
 
-{% block body %}
 
+{% block body %}
     <div class="page-title background-campaign">
         <div class="container">
             <h1>{{ project_title }}</h1>
@@ -35,8 +35,7 @@
                         <div class="campaign-author clearfix">
                             <div class="author-profile">
                                 <a class="author-icon" href="#"><img
-                                        src="http://
-                                                {{ request.get_host }}{{ project_owner.user_profile.profile_pic.url }}"
+                                        src="http://{{ request.get_host }}{{ project_owner.user_profile.profile_pic.url }}"
                                         alt=""></a>by <a
                                     class="author-name" href="#">{{ project_owner.get_full_name }}</a>
                             </div>

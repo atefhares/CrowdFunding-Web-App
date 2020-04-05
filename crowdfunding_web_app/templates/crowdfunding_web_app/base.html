@@ -8,7 +8,7 @@
 
     <!-- Style CSS -->
     <link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}"/>
     <link rel="icon" href={% static "images/favicon.png" %} type="image/x-icon"/>
 </head>
 
@@ -98,9 +98,9 @@
                         <button type="submit" value=""><span class="ion-ios-search-strong"></span></button>
                     </form>
                 </div>
-{#                <div class="search_results">#}
-{#                    {% include 'crowdfunding_web_app/search_results.html' %}#}
-{#                </div>#}
+                {#                <div class="search_results">#}
+                {#                    {% include 'crowdfunding_web_app/search_results.html' %}#}
+                {#                </div>#}
 
                 <div class="login login-button">
                     {% if user_data.is_authenticated %}
@@ -235,6 +235,7 @@
 <script src="{% static "libs/popper/popper.js" %}"></script>
 <script src="{% static "libs/bootstrap/js/bootstrap.min.js" %}"></script>
 <script src="{% static "libs/owl-carousel/owl.carousel.min.js" %}"></script>
+<script src="{% static "libs/owl-carousel/carousel.min.js" %}"></script>
 <script src="{% static "libs/jquery.countdown/jquery.countdown.min.js" %}"></script>
 <script src="{% static "libs/wow/wow.min.js" %}"></script>
 <script src="{% static "libs/isotope/isotope.pkgd.min.js" %}"></script>
@@ -255,22 +256,6 @@
             if (theEvent.preventDefault) theEvent.preventDefault();
         }
     }
-
-    {#$(document).on('submit', '#searchForm', function (e) {#}
-    {#    e.preventDefault();#}
-    {##}
-    {#    $.ajax({#}
-    {#        type: 'GET',#}
-    {#        url:'/search/',#}
-    {#        data:{#}
-    {#            q:$('#search-input').val(),#}
-    {#            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]')#}
-    {#        },#}
-    {#        success: function () {#}
-    {#            alert("SEARCH")#}
-    {#        },#}
-    {#    })#}
-    {#})#}
 </script>
 
 </body>
