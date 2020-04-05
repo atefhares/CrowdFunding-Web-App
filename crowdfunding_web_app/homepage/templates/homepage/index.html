@@ -49,10 +49,16 @@
                                     <div class="raised"><span></span></div>
                                     <div class="process-info">
                                         <div class="process-pledged">
-                                            <span>$45000</span>pledged
+                                            <span>$
+                                                {% if pledged_amount.amount__sum == None %}
+                                                    0
+                                                {% else %}
+                                                    {{ project.pledged_amount.amount__sum }}
+                                                {% endif %}
+                                                </span>pledged
                                         </div>
                                         <div class="process-funded"><span>81%</span>funded</div>
-                                        <div class="process-time"><span>37</span>backers</div>
+                                        <div class="process-time"><span>{{ project.num_of_backers }}</span>backers</div>
                                         <div class="process-time"><span>23</span>days ago</div>
                                     </div>
                                 </div>
@@ -130,7 +136,8 @@
                                     </div>
                                     <div class="campaign-author"><a class="author-icon" href="#"><img
                                             src="{{ project.owner.user_profile.profile_pic }}"
-                                            alt=""></a>by <a class="author-name" href="#">{{ project.owner.get_full_name }}</a></div>
+                                            alt=""></a>by <a class="author-name"
+                                                             href="#">{{ project.owner.get_full_name }}</a></div>
                                     <div class="process">
                                         <div class="raised"><span></span></div>
                                         <div class="process-info">

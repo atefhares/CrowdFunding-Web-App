@@ -2,6 +2,7 @@ import os
 
 from django.conf.global_settings import MEDIA_URL
 from django.db import models
+from django.db.models import Sum
 from django_countries.fields import CountryField
 
 from accounts.models import User
@@ -36,6 +37,10 @@ class Project(models.Model):
     end_date = models.DateField()
     tags = models.ManyToManyField(Tag, blank=True, verbose_name="List of tags", related_name="number_of_uses")
     country = CountryField(null=False, blank=False)
+
+    @property
+    def pledged_amount(self):
+        return self.donations.aggregate(Sum('amount'))
 
     def __str__(self):
         return self.title
