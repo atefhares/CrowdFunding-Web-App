@@ -55,6 +55,7 @@ def handle_view_project_request(request, project_id):
     render_data = {
         "project_id": project.id,
         "project_title": project.title,
+        "project_category": project.category.name,
         "project_images": project.pictures.all(),
         "project_description": project.description,
         "project_owner": project.owner,
