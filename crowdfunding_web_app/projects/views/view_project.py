@@ -6,13 +6,15 @@ import math
 import datetime
 
 
-def get_project_target(target):
-    if 1000 <= target < 100000:
-        return str(math.ceil(target / 1000)) + " k"
-    elif 100000 <= target < 1000000:
-        return str(math.ceil(target / 100000)) + " kk"
-    else:
-        return str(math.ceil(target / 1000000)) + " m"
+def get_project_amount_view(target):
+    if not target:
+        return 0
+    elif 1000 <= target < 1000000:
+        return str(math.ceil(target / 1000)) + " K"
+    # elif 100000 <= target < 1000000:
+    #     return str(math.ceil(target / 100000)) + " KK"
+    elif target > 1000000:
+        return str(math.ceil(target / 1000000)) + " M"
 
 
 def handle_view_project_request(request, project_id):
@@ -30,7 +32,6 @@ def handle_view_project_request(request, project_id):
         project = Project.objects.get(id=project_id)
     except Exception:
         return redirect('404')
-
 
     if project.donations.all().count() == 0:
         donations = 0
@@ -59,8 +60,10 @@ def handle_view_project_request(request, project_id):
         "project_images": project.pictures.all(),
         "project_description": project.description,
         "project_owner": project.owner,
-        "project_pledged": get_project_target(math.ceil(project.total_target)),
+        "project_owner_img": project.owner.user_profile.profile_pic,
+        "project_pledged": get_project_amount_view(math.ceil(donations)),
         "project_funded": math.ceil(donations / project.total_target * 100),
+        "project_total_target": get_project_amount_view(math.ceil(project.total_target)),
         "project_donations_count": project.donations.count(),
         "project_time_1": project_time_1,
         "project_time_2": project_time_2,

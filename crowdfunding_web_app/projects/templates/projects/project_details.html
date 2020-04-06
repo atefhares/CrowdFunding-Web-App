@@ -35,16 +35,16 @@
                         <div class="campaign-author clearfix">
                             <div class="author-profile">
                                 <a class="author-icon" href="#"><img
-                                        src="http://{{ request.get_host }}{{ project_owner.user_profile.profile_pic.url }}"
+                                        src="{{ project_owner_img }}"
                                         alt=""></a>by <a
                                     class="author-name" href="#">{{ project_owner.get_full_name }}</a>
                             </div>
                             {#                            <div class="author-address"><span class="ion-location"></span>Melbourne, Victoria, AU</div>#}
                         </div>
                         <div class="process">
-                            <div class="raised"><span></span></div>
+                            <div class="raised"><span style="width:{{ project_funded }}%"></span></div>
                             <div class="process-info">
-                                <div class="process-funded"><span>${{ project_funded }}</span>funding goal</div>
+                                <div class="process-funded"><span>${{ project_total_target }}</span>funding goal</div>
                                 <div class="process-pledged"><span>${{ project_pledged }}</span>pledged</div>
                                 <div class="process-time"><span>{{ project_donations_count }}</span>backers</div>
                                 <div class="process-time"><span>{{ project_time_1 }}</span>{{ project_time_2 }}</div>

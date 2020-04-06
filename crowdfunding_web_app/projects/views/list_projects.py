@@ -6,15 +6,7 @@ import math
 
 from admins.models import FeaturedProject
 from projects.models import Project
-
-
-def get_project_amount_view(target):
-    if 1000 <= target < 1000000:
-        return str(math.ceil(target / 1000)) + " K"
-    # elif 100000 <= target < 1000000:
-    #     return str(math.ceil(target / 100000)) + " KK"
-    elif target > 1000000:
-        return str(math.ceil(target / 1000000)) + " M"
+from projects.views.view_project import get_project_amount_view
 
 
 def handle_list_all_projects_request(request):
@@ -53,7 +45,7 @@ def get_project_data_for_view(model):
             donations = 0
         else:
             donations = math.ceil(
-                project.donations.aggregate(Sum('amount')).get('amount__sum') / project.total_target * 100)
+                project.donations.aggregate(Sum('amount')).get('amount__sum'))
 
         projects_data_list.append(
             {
@@ -66,8 +58,8 @@ def get_project_data_for_view(model):
                 "project_owner_img": project.owner.user_profile.profile_pic,
                 "project_pic": project.pictures.first().pic_path,
                 "project_num_of_backers": project.donations.count(),
-                "project_pledged": get_project_amount_view(math.ceil(project.total_target)),
-                "project_funded": donations,
+                "project_pledged": get_project_amount_view(math.ceil(donations)),
+                "project_funded": math.ceil(donations / project.total_target * 100),
                 "project_time_1": project_time_1,
                 "project_time_2": project_time_2,
                 "project_start_date": project.start_date,

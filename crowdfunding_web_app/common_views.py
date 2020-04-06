@@ -4,6 +4,7 @@ from django.contrib.auth import logout
 from django.views.generic import ListView
 
 from projects.models import Project
+from projects.views.list_projects import get_project_data_for_view
 
 
 def render_404_page(request):
@@ -27,9 +28,10 @@ class SearchResultsView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        object_list = Project.objects.filter(
+        model = Project.objects.filter(
             Q(title__icontains=query) | Q(category__name__icontains=query)
         ).distinct()
+        object_list = get_project_data_for_view(model)
         return object_list
 
         # queryset = []

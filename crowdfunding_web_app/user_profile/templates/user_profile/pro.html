@@ -1,95 +1,92 @@
 {% extends 'crowdfunding_web_app/base.html' %}
 {% block body %}
 
-	<main id="main" class="site-main">
-			<div class="page-title background-page">
-				<div class="container">
-					<h1>Profile</h1>
-					<div class="breadcrumbs">
-					</div><!-- .breadcrumbs -->
-				</div>
-			</div>
+    <main id="main" class="site-main">
+    <div class="page-title background-page">
+        <div class="container">
+            <h1>Profile</h1>
+            <div class="breadcrumbs">
+            </div><!-- .breadcrumbs -->
+        </div>
+    </div>
 
 
 
 
-<div id="wrapper">
-		<header id="header" class="site-header">
-			<div class="container">
-				<div class="site-brand">
-					<a href="index.html"><img src="profile_pic/campaign-big-item.jpg" alt=""></a>
-				</div><!-- .site-brand -->
-				<div class="right-header">
-					<nav class="main-menu">
-						<button class="c-hamburger c-hamburger--htx"><span></span></button>
+    <div id="wrapper">
+    <header id="header" class="site-header">
+    <div class="container">
+{#    <div class="site-brand">#}
+{#        <a href="index.html"><img src="profile_pic/campaign-big-item.jpg" alt=""></a>#}
+{#    </div><!-- .site-brand -->#}
+    <div class="right-header">
+        <nav class="main-menu">
+            <button class="c-hamburger c-hamburger--htx"><span></span></button>
 
 
-					</nav>
-                </div>
+        </nav>
+    </div>
 
-                <div class="account-wrapper">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-3">
-							<nav class="account-bar">
-								<ul>
-									<li class="active"><p> Dashboard </p></li>
-                                    <li><a href = "/profile/edit" >Edit Profile</a></li>
-									<li ><a href = "/profile/delete" >Delete Profile</a></li>
-                                    <li ><a href = "/profile/projects">View Projects</a></li>
-								</ul>
-							</nav>
-						</div>
-<div class="col-lg-9">
+    <div class="account-wrapper">
+    <div class="container">
+    <div class="row">
+    <div class="col-lg-3">
+        <nav class="account-bar">
+            <ul>
+                <li class="active"><p> Dashboard </p></li>
+                <li><a href="/profile/edit">Edit Profile</a></li>
+                <li><a href="/profile/delete">Delete Profile</a></li>
+                <li><a href="/profile/projects">View Projects</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-lg-9">
     <div class="account-content profile">
-        <h3 class="account-title">My Profile</h3>
-        <div class="account-main">
-            <div class="author clearfix">
-                <a class="author-avatar" href="#"><img src="{{user.user_profile.profile_pic.url}}" alt=""></a>
-                <div class="author-content">
-                    <div class="author-title"><h3>{{user.first_name}}</h3></div>
-                </div>
-            </div>
-            <div class="profile-box">
-                <h3>Profile Infomations</h3>
-                <ul>
+    <h3 class="account-title">My Profile</h3>
+    <div class="account-main">
+    <div class="author clearfix">
+        <a class="author-avatar" href="#"><img src="{{ user.user_profile.profile_pic }}" alt=""></a>
+        <div class="author-content">
+            <div class="author-title"><h3>{{ user.first_name }}</h3></div>
+        </div>
+    </div>
+    <div class="profile-box">
+        <h3>Profile Infomations</h3>
+        <ul>
 
-                    <li>
-                        <strong>First Name</strong>
-                        <div class="profile-text"><p>{{user.first_name}}</p></div>
-                    </li>
-                    <li>
-                        <strong>Last Name:</strong>
-                        <div class="profile-text"><p>{{user.last_name}}</p></div>
-                    </li>
-                    <li>
-                        <strong>Mobile:</strong>
-                        <div class="profile-text"><p>{{user.user_profile.phone_number }}</p></div>
-                    </li>
-                    <li>
-                        <strong>Birthdate</strong>
-                        <div class="profile-text"><p>{{user.user_profile.birth_date}}</p></div>
-                    </li>
-                    <li>
-                        <strong>Email</strong>
-                        <div class="profile-text"><p>{{user.email}}</p></div>
-                    </li>
-                    <li>
-						 <strong>FB</strong>
-                  <div  class="profile-text">  <p><a href="{{user.user_profile.facebook_profile_id }}"> Link </a></p> </div>
-                    </li>
-                    <li>
-                        <strong>Country:</strong>
-                        <div class="profile-text"><p>{{user.user_profile.country}}</p></div>
-                    </li>
-
-
+            <li>
+                <strong>First Name</strong>
+                <div class="profile-text"><p>{{ user.first_name }}</p></div>
+            </li>
+            <li>
+                <strong>Last Name:</strong>
+                <div class="profile-text"><p>{{ user.last_name }}</p></div>
+            </li>
+            <li>
+                <strong>Mobile:</strong>
+                <div class="profile-text"><p>{{ user.user_profile.phone_number }}</p></div>
+            </li>
+            <li>
+                <strong>Birthdate</strong>
+                <div class="profile-text"><p>{{ user.user_profile.birth_date }}</p></div>
+            </li>
+            <li>
+                <strong>Email</strong>
+                <div class="profile-text"><p>{{ user.email }}</p></div>
+            </li>
+            <li>
+                <strong>FB</strong>
+                <div class="profile-text"><p><a href="{{ user.user_profile.facebook_profile_id }}"> Link </a></p></div>
+            </li>
+            <li>
+                <strong>Country:</strong>
+                <div class="profile-text"><p>{{ user.user_profile.country }}</p></div>
+            </li>
 
 
+        </ul>
 
-				</ul>
-
-            </div>
+    </div>
 
 
-            {% endblock %}
+{% endblock %}
