@@ -1,4 +1,5 @@
 {% extends 'crowdfunding_web_app/base.html' %}
+{% load static %}
 {% block body %}
 
     <main id="main" class="site-main">
@@ -17,7 +18,7 @@
     <header id="header" class="site-header">
     <div class="container">
 {#    <div class="site-brand">#}
-{#        <a href="index.html"><img src="profile_pic/campaign-big-item.jpg" alt=""></a>#}
+{#        <a href="index.html"><img src="{% static 'images/campaign-big-item.jpg' %}" alt=""></a>#}
 {#    </div><!-- .site-brand -->#}
     <div class="right-header">
         <nav class="main-menu">

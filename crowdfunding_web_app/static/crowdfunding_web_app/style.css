@@ -2081,6 +2081,8 @@ ul.menu-category li.active:after {
 
 .entry-footer .author-info img,
 .comment-area .comment-avatar img {
+    /*max-width: 50px;*/
+    /*max-height: 50px;*/
     width: auto;
     float: left;
     border-radius: 2px;
