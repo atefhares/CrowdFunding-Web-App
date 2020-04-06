@@ -13,7 +13,7 @@ class Admin(models.Model):
 
 
 class FeaturedProject(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="featured_project")
     admin = models.ForeignKey(Admin, on_delete=models.CASCADE)
     date_featured = models.DateField()
 

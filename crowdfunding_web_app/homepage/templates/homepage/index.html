@@ -1,5 +1,5 @@
 {% extends 'crowdfunding_web_app/base.html' %}
-
+{% load custom_tags %}
 {% block body %}
     <div class="preloading">
         {#        <div class="preloader loading">#}
@@ -25,41 +25,45 @@
 
 
                         <div class="staff-picks-item clearfix">
-                            <a class="staff-picks-image col-md-6 col-12" href="{% url 'view_project' project.id %}"><img
-                                    src="{{ project.pictures.first.pic_path }}"
+                            <a class="staff-picks-image col-md-6 col-12"
+                               href="{% url 'view_project' project.project_id %}"><img
+                                    src="{{ project.project_pic }}"
                                     alt=""></a>
                             <div class="staff-picks-item-content staff-picks-box">
-                                <a href="#" class="category">{{ project.category }}</a>
-                                <h3><a href="{% url 'view_project' project.id %}">{{ project.title }}</a></h3>
+                                <a href="#" class="category">{{ project.project_category }}</a>
+                                <h3>
+                                    <a href="{% url 'view_project' project.project_id %}">{{ project.project_title }}</a>
+                                </h3>
                                 <div class="staff-picks-description">
-                                    {{ project.description }}
+                                    {{ project.project_desc }}
                                 </div>
                                 <div class="staff-picks-author">
                                     <div class="author-profile">
                                         <a class="author-avatar" href="#"><img
-                                                src="{{ project.owner.user_profile.profile_pic }}"
+                                                src="{{ project.project_owner_img }}"
                                                 alt=""></a>by
-                                        <a class="author-name" href="#">{{ project.owner.get_full_name }}</a>
+                                        <a class="author-name" href="#">{{ project.project_owner }}</a>
                                     </div>
                                     <div class="author-address"><span class="ion-location"></span>
-                                        {{ project.country.name }}
+                                        {{ project.project_country }}
                                     </div>
                                 </div>
-                                <div class="process">
-                                    <div class="raised"><span></span></div>
+                                <div class="process">{% if project.pledged_amount.amount__sum %}
+                                    {% percent_amount project.pledged_amount.amount__sum project.total_target as percentage %}
+                                {% endif %}
+                                    <div class="raised"><span style="width:{{ project.project_funded }}%"></span></div>
                                     <div class="process-info">
                                         <div class="process-pledged">
-                                            <span>$
-                                                {% if pledged_amount.amount__sum == None %}
-                                                    0
-                                                {% else %}
-                                                    {{ project.pledged_amount.amount__sum }}
-                                                {% endif %}
-                                                </span>pledged
+                                            <span>${{ project.project_pledged }}</span>pledged
                                         </div>
-                                        <div class="process-funded"><span>81%</span>funded</div>
-                                        <div class="process-time"><span>{{ project.num_of_backers }}</span>backers</div>
-                                        <div class="process-time"><span>23</span>days ago</div>
+                                        <div class="process-funded">
+                                            <span>{{ project.project_funded }} %</span>funded
+                                        </div>
+                                        <div class="process-time"><span>{{ project.project_num_of_backers }}</span>backers
+                                        </div>
+                                        <div class="process-time">
+                                            <span>{{ project.project_time_1 }}</span>{{ project.project_time_2 }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -76,36 +80,39 @@
             <div class="description">Latest projects that were chosen by our admins.</div>
             <div class="campaign-content">
                 <div class="row">
-                    {#                                        TODO#}
-                    {% for fproject in latest_featured_projects %}
-                        <div class="col-lg-4 col-md-6">
+                    {% for project in latest_featured_projects %}
+                        <div class="col-lg-4 col-sm-6 col-6">
                             <div class="campaign-item">
-                                <a class="overlay" href="{% url 'view_project' fproject.project.id %}">
-                                    <img src="{{ fproject.project.pictures.first.pic_path }}" alt="">
+                                <a class="overlay" href="{{ project.project_id }}">
+                                    <img src="{{ project.project_pic }}" alt="">
                                     <span class="ion-ios-search-strong"></span>
                                 </a>
                                 <div class="campaign-box">
-                                    <a href="#" class="category">{{ fproject.project.category }}</a>
-                                    <h3><a href="{% url 'view_project' fproject.project.id %}">{{ fproject.project.title }}</a></h3>
-                                    <div class="campaign-description">
-                                        {{ fproject.project.description }}
-                                    </div>
+                                    <a href="#" class="category">{{ project.project_category }}</a>
+                                    <h3><a href="{{ project.project_id }}">{{ project.project_title }}</a></h3>
+                                    <div class="campaign-description"> {{ project.project_desc }}</div>
                                     <div class="campaign-author"><a class="author-icon" href="#"><img
-                                            src="{{ fproject.project.owner.user_profile.profile_pic }}"
-                                            alt=""></a>by <a class="author-name"
-                                                             href="#">{{ fproject.project.owner.get_full_name }}</a>
+                                            src="{{ project.project_owner_img }}" alt=""></a>by <a
+                                            class="author-name" href="#">{{ project.project_owner }}</a>
                                     </div>
                                     <div class="process">
-                                        <div class="raised"><span></span></div>
+                                    <div class="raised"><span style="width:{{ project.project_funded }}%"></span></div>
                                         <div class="process-info">
-                                            <div class="process-pledged"><span>$630</span>pledged</div>
-                                            <div class="process-funded"><span>26%</span>funded</div>
-                                            <div class="process-time"><span>2</span>days ago</div>
+                                            <div class="process-pledged">
+                                                <span>${{ project.project_pledged }}</span>pledged
+                                            </div>
+                                            <div class="process-funded">
+                                                <span>{{ project.project_funded }} %</span>funded
+                                            </div>
+                                            <div class="process-time">
+                                                <span>{{ project.project_time_1 }}</span>{{ project.project_time_2 }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     {% endfor %}
 
                 </div>
@@ -120,35 +127,39 @@
             <div class="description">Recently created projects.</div>
             <div class="campaign-content">
                 <div class="row">
-                    {#                    TODO#}
                     {% for project in latest_projects %}
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-4 col-sm-6 col-6">
                             <div class="campaign-item">
-                                <a class="overlay" href="{% url 'view_project' project.id %}">
-                                    <img src="{{ project.pictures.first.pic_path }}" alt="">
+                                <a class="overlay" href="{{ project.project_id }}">
+                                    <img src="{{ project.project_pic }}" alt="">
                                     <span class="ion-ios-search-strong"></span>
                                 </a>
                                 <div class="campaign-box">
-                                    <a href="#" class="category">{{ project.category }}</a>
-                                    <h3><a href="{% url 'view_project' project.id %}">{{ project.title }}</a></h3>
-                                    <div class="campaign-description">
-                                        {{ project.description }}
-                                    </div>
+                                    <a href="#" class="category">{{ project.project_category }}</a>
+                                    <h3><a href="{{ project.project_id }}">{{ project.project_title }}</a></h3>
+                                    <div class="campaign-description"> {{ project.project_desc }}</div>
                                     <div class="campaign-author"><a class="author-icon" href="#"><img
-                                            src="{{ project.owner.user_profile.profile_pic }}"
-                                            alt=""></a>by <a class="author-name"
-                                                             href="#">{{ project.owner.get_full_name }}</a></div>
+                                            src="{{ project.project_owner_img }}" alt=""></a>by <a
+                                            class="author-name" href="#">{{ project.project_owner }}</a>
+                                    </div>
                                     <div class="process">
-                                        <div class="raised"><span></span></div>
+                                    <div class="raised"><span style="width:{{ project.project_funded }}%"></span></div>
                                         <div class="process-info">
-                                            <div class="process-pledged"><span>$630</span>pledged</div>
-                                            <div class="process-funded"><span>26%</span>funded</div>
-                                            <div class="process-time"><span>2</span>days ago</div>
+                                            <div class="process-pledged">
+                                                <span>${{ project.project_pledged }}</span>pledged
+                                            </div>
+                                            <div class="process-funded">
+                                                <span>{{ project.project_funded }} %</span>funded
+                                            </div>
+                                            <div class="process-time">
+                                                <span>{{ project.project_time_1 }}</span>{{ project.project_time_2 }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     {% endfor %}
 
                 </div>
