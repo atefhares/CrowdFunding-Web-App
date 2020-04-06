@@ -6,7 +6,8 @@ from django.db.models import Sum
 from django_countries.fields import CountryField
 
 from accounts.models import User
-
+import datetime
+from django.utils import timezone
 
 # Create your models here.
 
@@ -78,10 +79,12 @@ class ProjectRating(models.Model):
 
 
 class Comment(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE,related_name="comments")
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name="comments")
+    created_at = models.DateTimeField(default=timezone.now)
     comment = models.CharField(max_length=600)
-
+    comment_reports = models.SmallIntegerField(default=0)
+    is_reported = models.BooleanField(default=False)
     def __str__(self):
         return f"{self.user} on {self.project}"
 
